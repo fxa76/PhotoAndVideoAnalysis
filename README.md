@@ -1,4 +1,8 @@
 # PhotoAndVideoAnalysis
+PhotoAndVideoAnalysis is a system to store and analyze images and video files, the goal is to extract as much information as possible from the images using exif data, image recognition techniques and to provide a web interface to easily use the information extrated to retrieve photo, create albums, etc...
+
+Main technologies used are docker, postgres, rabbitmq, ffmpeg, mongodb, opencv
+Programming languages are Python and Javascript (Angular)
 
 # Working principles
 1. original file is never modified (batch load will move from load folder to storage folder keeping the same directory hierarchy)
