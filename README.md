@@ -24,7 +24,8 @@ Batch load from a source folder
 1. speech to text
 
 # Web Interface:
-1. search criteria using date, gps coordinates (thru map area selection), object detected, face similarity
+1. Drag and drop image to upload to db and run thru analyses
+2. search criteria using date, gps coordinates (thru map area selection), object detected, face similarity
 [![search criteria](docs/screenshots/search.png)]
 3. open street map pins for each photo video with GPS coordinate
 [![screenshot of map](docs/screenshots/map_world.png)]
