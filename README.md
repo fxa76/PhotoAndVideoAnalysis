@@ -26,8 +26,8 @@ Batch load from a source folder
 # Web Interface:
 1. search criteria using date, gps coordinates (thru map area selection), object detected, face similarity
 2. open street map pins for each photo video with GPS coordinate
-[![screenshot of map](./docs/screenshot/map_world.png)]
-[![screenshot of map](./docs/screenshot/map_corsica.png)]
+[![screenshot of map](docs/screenshots/map_world.png)]
+[![screenshot of map](docs/screenshots/map_corsica.png)]
 4. add comments to video or photo in db
 5. add gps coordinates to video or photo in db
 6. group photos or videos in albums
