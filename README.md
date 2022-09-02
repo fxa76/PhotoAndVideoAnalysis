@@ -26,9 +26,10 @@ Batch load from a source folder
 # Web Interface:
 1. search criteria using date, gps coordinates (thru map area selection), object detected, face similarity
 2. open street map pins for each photo video with GPS coordinate
-3. add comments to video or photo in db
-4. add gps coordinates to video or photo in db
-5. group photos or videos in albums
-6. timeline for photos
-7. layer on top of picture to highlight detected objects
-8. Find similar faces across the database
+[![screenshot of map](docs/screenshot/worldmap.png)]
+4. add comments to video or photo in db
+5. add gps coordinates to video or photo in db
+6. group photos or videos in albums
+7. timeline for photos
+8. layer on top of picture to highlight detected objects
+9. Find similar faces across the database
