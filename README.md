@@ -4,6 +4,8 @@ PhotoAndVideoAnalysis is a system to store and analyze images and video files, t
 Main technologies used are docker, postgres, rabbitmq, ffmpeg, mongodb, opencv, nginx
 Programming languages are Python and Javascript (Angular)
 
+[![rabbitmq queues](docs/screenshots/rabbitmq.png)]
+
 # Working principles
 1. original file is never modified (batch load will move from load folder to storage folder keeping the same directory hierarchy)
 2. analysis are queued per analysis type using Rabbitmq
