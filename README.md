@@ -27,7 +27,7 @@ Batch load from a source folder
 
 # Web Interface:
 1. Drag and drop image to upload to db and run thru analyses
-2. search criteria using date, gps coordinates (thru map area selection), object detected, face similarity
+2. search criteria using date, gps coordinates (thru map area selection and also files with no gps coordinates), object detected, face similarity, camera type, file format
 [![search criteria](docs/screenshots/search.png)]
 3. open street map pins for each photo video with GPS coordinate
 [![screenshot of map](docs/screenshots/map_world.png)]
