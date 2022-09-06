@@ -2,16 +2,16 @@
 PhotoAndVideoAnalysis is a system to store and analyze images and video files, the goal is to extract as much information as possible from the images using exif data, image recognition techniques and to provide a web interface to easily use the information extrated to retrieve photo, create albums, etc...
 
 Main technologies used are :
-. docker
-. nginx: unify the multiple servers behing one address)
-. ssl: for https access
-. databases: postgres for file informations, mongodb for token based authentication 
-. rabbitmq: queue management 
-. ffmpeg (video), opencv (images nad video), tesseract_ocr (ocr), yolo (object detection in images) ...
+1. docker
+2. nginx: unify the multiple servers behing one address)
+3. ssl: for https access
+4. databases: postgres for file informations, mongodb for token based authentication 
+5. rabbitmq: queue management 
+6. ffmpeg (video), opencv (images nad video), tesseract_ocr (ocr), yolo (object detection in images) ...
  
 Programming languages are 
-. Python: most of the file treatment 
-. Javascript Angular: Web interface
+1. Python: most of the file treatment 
+2. Javascript Angular: Web interface
 
 [![rabbitmq queues](docs/screenshots/rabbitmq.png)]
 
