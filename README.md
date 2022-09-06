@@ -32,6 +32,7 @@ Batch load from a source folder
 3. open street map pins for each photo video with GPS coordinate
 [![screenshot of map](docs/screenshots/map_world.png)]
 [![screenshot of map](docs/screenshots/map_corsica.png)]
+[![screenshot of map](docs/screenshots/precise_location.png)]
 4. add comments to video or photo in db
 5. add gps coordinates to video or photo in db
 6. group photos or videos in albums
