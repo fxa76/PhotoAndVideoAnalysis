@@ -1,6 +1,8 @@
 # PhotoAndVideoAnalysis
 PhotoAndVideoAnalysis is a system to store and analyze images and video files, the goal is to extract as much information as possible from the images using exif data, image recognition techniques and to provide a web interface to easily use the information extrated to retrieve photo, create albums, etc...
 
+This project is develop for learning purpose, and is shared with no garantee expressed or implied.
+
 Main technologies used are :
 1. docker
 2. nginx: unify the multiple servers behing one address)
@@ -18,6 +20,12 @@ Programming languages are
 # Working principles
 1. original file is never modified (batch load will move from load folder to storage folder keeping the same directory hierarchy)
 2. analysis are queued per analysis type using Rabbitmq
+
+# Credits
+in the learning process many sources have been used. Credits and Attribution has been added to the source files. 
+If you believe some of your code is used and credits are missing or not clear enough please contact me, I will happily improve the credits part. 
+
+OpenCV code is was developed foollowing guidance and code provided by Adrian at PyImageSearch
 
 # Load in DB
 Batch load from a source folder
@@ -41,7 +49,7 @@ Batch load from a source folder
 3. open street map pins for each photo video with GPS coordinate
 [![screenshot of map](docs/screenshots/map_world.png)]
 [![screenshot of map](docs/screenshots/map_corsica.png)]
-[![screenshot of map](docs/screenshots/precise_location.png)]
+[![screenshot of map](docs/screenshots/map_precise_location.png)]
 4. add comments to video or photo in db
 5. add gps coordinates to video or photo in db
 6. group photos or videos in albums
