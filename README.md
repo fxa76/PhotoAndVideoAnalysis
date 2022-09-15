@@ -27,6 +27,19 @@ If you believe some of your code is used and credits are missing or not clear en
 
 OpenCV code is was developed foollowing guidance and code provided by Adrian at PyImageSearch
 
+# install and run
+1. clone the repository
+2. first step is to generate the ssl certifcates and paste in nginx directory
+3. create a storage volume for postgres data
+```
+docker volume create fxa_imagesdata_postgres
+```
+4. create appropriate directories for image storage, image inbox, and image work
+5. then start 
+```
+docker-compose up
+````
+
 # Load in DB
 Batch load from a source folder
 1. prevent duplicate photo or video insertion using sha 512
