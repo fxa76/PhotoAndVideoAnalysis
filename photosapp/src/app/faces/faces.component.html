@@ -1,0 +1,33 @@
+<button mat-button color="primary" (click)="getPrevious()">
+  <fa-icon [icon]="faFastBackward"></fa-icon>
+</button>
+<button mat-button color="primary" (click)="getNext()">
+  <fa-icon [icon]="faFastForward"></fa-icon>
+</button>
+<label> <input #myCheckBox type="checkbox" [(ngModel)]="isChecked" (change)="checkValue(isChecked?true:false)" />
+  <fa-icon [icon]="faGlobe"></fa-icon>
+</label>
+
+<div class="gallery">
+  <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
+    <mat-progress-bar color="primary" mode="indeterminate">
+    </mat-progress-bar>
+  </mat-card>
+
+  <div class="images_thumbnails" *ngFor="let face of faces">
+    <div class="imageCard">
+      <div class="title">{{face.face_id}} iter : {{face.iteration}}</div>
+      <div *ngIf="distinct; else elseBlock">
+        <div class="thumbnail"> <a routerLink="/face/{{face.iteration}}/{{face.face_id}}/0/100"><img src='{{face.image}}' height="100" width="100" alt='face image' /></a></div>
+        <button (click)="hiddeFace(face.iteration,face.face_id)">hidde</button>
+      </div>
+      <ng-template #elseBlock>
+        <a routerLink="/detail/{{face.image_id}}"><img src='{{face.image}}' height="100" width="100" alt='face image' /></a>
+        <a routerLink="/faces/{{face.objects_id}}">similar</a>
+        <div *ngIf="face.distance">
+          dist : {{face.distance}}
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

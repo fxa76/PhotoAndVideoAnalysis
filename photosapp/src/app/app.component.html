@@ -1,0 +1,30 @@
+<div *ngIf="!isLoading">
+  <mat-toolbar>
+    <nav>
+      <div *ngIf="isLoggedIn()">
+        <a routerLink="/albums" mat-raised-button  matTooltip="Albums"><fa-icon [icon]="faBook"></fa-icon></a>
+        <a routerLink="/images" mat-raised-button matTooltip="Images"><fa-icon [icon]="faImages"></fa-icon></a>
+        <a routerLink="/faces" mat-raised-button matTooltip="Faces"><fa-icon [icon]="faSmile"></fa-icon></a>
+        <a routerLink="/facesdistinct" mat-raised-button matTooltip="Distinct Faces"><fa-icon [icon]="faSmile" ></fa-icon>ID</a>
+        <a routerLink="/map" mat-raised-button matTooltip="Map"><fa-icon [icon]="faGlobe"></fa-icon></a>
+        <a routerLink="/searchParam" mat-raised-button matTooltip="Search prameters"><fa-icon [icon]="faSearch"></fa-icon></a>
+        <a routerLink="/upload" mat-raised-button matTooltip="Upload image"><fa-icon [icon]="faUpload"></fa-icon></a>
+        <a routerLink="/timelinebar" mat-raised-button matTooltip="user profile"><fa-icon [icon]="faChartBar"></fa-icon></a>
+        <a routerLink="/user-profile/{{this.authService.user_id}}" mat-raised-button matTooltip="user profile"><fa-icon [icon]="faUser"></fa-icon></a>
+        <a (click)="logout()"mat-raised-button matTooltip="logout"><fa-icon [icon]="faSignOutAlt"></fa-icon></a>
+      </div>
+      <div *ngIf="!isLoggedIn()">
+        <a routerLink="/log-in" mat-raised-button matTooltip="log-in"><fa-icon [icon]="faSignInAlt"></fa-icon></a>
+        <a routerLink="/signup" mat-raised-button matTooltip="signup"><fa-icon [icon]=" faUserPlus"></fa-icon></a>
+      </div>
+    </nav>
+  </mat-toolbar>
+  <div class="mainContainer">
+    <router-outlet></router-outlet>
+  </div>
+  <div *ngIf="isLoggedIn()">
+    <div class="messages">
+      <app-messages></app-messages>
+    </div>
+  </div>
+</div>

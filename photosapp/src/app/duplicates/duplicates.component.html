@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="column100">
+
+    <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
+      <mat-progress-bar color="primary" mode="indeterminate">
+      </mat-progress-bar>
+    </mat-card>
+    <div *ngFor="let duplicate_group of duplicates">
+      <div class="imageCard" *ngFor="let image of duplicate_group.duplicates">
+        {{image.image_id}}
+        <a routerLink="/detail/{{image.image_id}}">
+          <img src='{{image.thumbnail}}' alt='thumbnail' />
+        </a>
+      </div>
+      <hr />
+    </div>
+  </div>
+</div>

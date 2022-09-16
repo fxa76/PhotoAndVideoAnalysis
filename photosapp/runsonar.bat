@@ -1,0 +1,1 @@
+sonar-scanner.bat -D"sonar.projectKey=photosApp" -D"sonar.sources=." -D"sonar.host.url=http://localhost:9000" -D"sonar.login=sqp_9bdbe582e415d083e1a4d57a4ba7c97f9531c3d5"

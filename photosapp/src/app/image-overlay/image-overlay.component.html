@@ -1,0 +1,25 @@
+<div *ngIf="image">
+
+  <button mat-button (click)="goBack()">
+    <fa-icon [icon]="faArrowCircleLeft"></fa-icon>
+  </button>
+
+  <div class="row">
+    <div class="column_80">
+      <app-d3-image-and-objects-viewer #imageViewer [my_image]="image"></app-d3-image-and-objects-viewer>
+    </div>
+    <div class="column_20">
+      <span>id: </span>{{image.image_id}}
+      <div style="display:flex">
+        <div style="display:flex,overflow:auto scroll">
+          <UL>
+            <div *ngFor="let obj of image.objs">
+              <LI style="display:block">{{obj.objects_id}} {{obj.description}} {{obj.analyzer_version}} ({{obj.x}},{{obj.y}},{{obj.w}},{{obj.h}}),{{obj.text_found}}</LI>
+            </div>
+          </UL>
+        </div>
+      </div>
+    </div>
+  </div>
+  <label>comments:{{image.comments}}</label>
+</div>

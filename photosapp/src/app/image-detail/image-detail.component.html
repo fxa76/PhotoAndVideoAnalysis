@@ -1,0 +1,53 @@
+<div *ngIf="image">
+  <button mat-button (click)="goBack()" color="primary" matTooltip="Go Back">
+    <fa-icon [icon]="faArrowCircleLeft"></fa-icon>
+  </button>
+  <button mat-button (click)="save()" color="primary" matTooltip="Save changes">
+    <fa-icon [icon]="faSave"></fa-icon>
+  </button>
+  <a mat-button routerLink="/overlay/{{image.image_id}}" color="primary" matTooltip="View detected objects">
+    <fa-icon [icon]="faObjectGroup"></fa-icon>
+  </a>
+  <div class="row">
+    <div class="column_80">
+      <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
+        <mat-progress-bar color="primary" mode="indeterminate">
+        </mat-progress-bar>
+      </mat-card>
+      <div *ngIf="!isLoading">
+        <div *ngIf="!isVideo()">
+          <app-d3-image-viewer #imageViewer [my_image]="image"></app-d3-image-viewer>
+        </div>
+        <div *ngIf="isVideo()">
+          <video id="video" style="max-height:400px" controls autoplay="autoplay">
+            <source src="/fs/v1/get_file/{{image.image_id}}">
+          </video>
+        </div>
+      </div>
+    </div>
+    <div class="column_20">
+      <div><img style="max-height:60vh" src='{{image.thumbnail}}' alt='thumbnail' /></div>
+      <div>id: {{image.image_id}}</div>
+      <div>File name : {{image.filefullname}}</div>
+      <input type="date" [(ngModel)]="creationDate">
+      <input type="time" [(ngModel)]="creationTime">
+      <div>Timestamp : {{image.timestamp}}</div>
+      <div>Lat : <input [(ngModel)]="image.lat" placeholder="" /></div>
+      <div>Lon : <input [(ngModel)]="image.lon" placeholder="" /></div>
+      <div>creation date : {{image.creationdate}}</div>
+      <div>coord_from_exif : {{image.coord_from_exif}}</div>
+      <div>Model : {{image.model}}</div>
+      <div>Source : {{image.source}}</div>
+      <div>File size : {{image.filesize}}</div>
+      <div> <a mat-button href="/fs/v1/get_file/{{image.image_id}}">get file</a></div>
+      <UL>
+        <label>Other names for this file: </label>
+        <li *ngFor="let item of image.othernames; let i = index">{{i}} -- {{item}}</li>
+      </UL>
+    </div>
+  </div>
+  <div class="row">
+    <label>comments:
+      <textarea [(ngModel)]="image.comments" placeholder="comments" rows="3" cols="90"></textarea>
+    </label>
+  </div>

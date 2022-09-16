@@ -1,0 +1,34 @@
+/* ImagesComponent's private CSS styles */
+.gallery{
+  display:block;
+  height:90%;
+  width: 100%;
+  overflow: auto;
+}
+
+.images_thumbnails{
+  display: inline-block;
+}
+.imageCard{
+    display: block;
+    width :200px;
+    max-width: 200px;
+    background-color:#CACACA;
+    align-items: center;
+    border: 1px solid #ACACAC;
+    border-radius: 10px;
+    padding: 2px;
+    margin: 1px;
+}
+.title{
+    background-color: #CACACA;
+    margin: auto;
+    width: 60%;
+    padding: 1px;
+}
+.thumbnail{
+  background-color: #CACACA;
+  margin: auto;
+  width: 60%;
+  padding: 1px;
+}

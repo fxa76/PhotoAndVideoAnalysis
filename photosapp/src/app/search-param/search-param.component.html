@@ -1,0 +1,132 @@
+<button mat-button color="warn" (click)="save()">
+  <fa-icon [icon]="faRedo"></fa-icon>
+</button>
+<br />
+<div class="row">
+  <div class="card">
+    <h4 class="card-header">date interval </h4>
+    <div class="card-body">
+        <mat-slide-toggle color="primary"
+            [checked]="dateIsNull"
+            (change)="toggleDateData($event)">
+            date is null
+        </mat-slide-toggle>
+        <BR/> 
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker1" placeholder="Start date" [formControl]="startDate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker2" placeholder="End date" [formControl]="endDate">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="card">
+    <h4 class="card-header">Collection start and size </h4>
+    <div class="card-body">
+      <mat-form-field>
+        <mat-label>Offset</mat-label>
+        <input matInput type="number" [(ngModel)]="searchParamService.searchParam.offset" placeholder={{searchParamService.searchParam.offset}} />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Next </mat-label>
+        <input matInput type="number" [(ngModel)]="searchParamService.searchParam.next" placeholder={{searchParamService.searchParam.next}} />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="card">
+    <h4 class="card-header">GPS Coordinates </h4>
+    <div class="card-body">
+      <mat-slide-toggle color="primary"
+          [checked]="gpsIsNull"
+          (change)="toggleGpsData($event)">
+          Gps is null
+      </mat-slide-toggle>
+      <BR/>
+      <mat-slide-toggle color="primary"
+          [checked]="useCoords"
+          (change)="toggleUseCoordsData($event)">
+          use coords
+      </mat-slide-toggle>
+      <BR/>
+      <mat-form-field>
+        <mat-label>Top Right Lon</mat-label>
+        <input matInput type="number" [(ngModel)]="searchParamService.searchParam.topRight[0]" placeholder={{searchParamService.searchParam.topRight[0]}} />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Top Right Lat</mat-label>
+        <input matInput type="number" [(ngModel)]="searchParamService.searchParam.topRight[1]" placeholder={{searchParamService.searchParam.topRight[1]}} />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Bottom Left Lon</mat-label>
+        <input matInput type="number" [(ngModel)]="searchParamService.searchParam.bottomLeft[0]" placeholder={{searchParamService.searchParam.bottomLeft[0]}} />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Bottom Left Lat</mat-label>
+        <input matInput type="number" [(ngModel)]="searchParamService.searchParam.bottomLeft[1]" placeholder={{searchParamService.searchParam.bottomLeft[1]}} />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="card">
+    <h4 class="card-header">Additional parameters </h4>
+    <div class="card-body">
+      <mat-form-field>
+        <mat-label>Source</mat-label>
+        <input matInput type="text" [(ngModel)]="searchParamService.searchParam.source" placeholder={{searchParamService.searchParam.source}} />
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="columnHiddenOverFlow">
+    <div class="row">
+      <h4>File formats</h4>
+    </div>
+    <div class="row">
+      <div class="column">
+        <div *ngFor="let desc of fileformats">
+          <mat-checkbox type="checkbox" [(ngModel)]="desc.selected" (change)="checkValue(desc.selected?true:false)">
+            <mat-label>{{desc.name}} {{desc.count}}</mat-label>
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="columnHiddenOverFlow">
+    <div class="row">
+      <h4>Camera types</h4>
+    </div>
+    <div class="row">
+      <div class="column">
+        <div *ngFor="let desc of cameras">
+          <mat-checkbox type="checkbox" [(ngModel)]="desc.selected" (change)="checkValue(desc.selected?true:false)">
+            <mat-label>{{desc.name}} {{desc.count}}</mat-label>
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="columnHiddenOverFlow">
+    <div class="row">
+      <h4>Objects detected</h4>
+    </div>
+    <div class="row">
+      <div class="column">
+        <div *ngFor="let desc of descriptionsToBeIncluded">
+          <div> {{desc.description}} {{desc.criteria}} {{desc.qty}}</div>
+        </div>
+        <div *ngFor="let desc of descriptions">
+          <mat-checkbox type="checkbox" [(ngModel)]="desc.selected" (change)="checkValue(desc.selected?true:false)">
+            <mat-label>{{desc.description}} {{desc.amount}}</mat-label>
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<button mat-button color="primary" (click)="getPrevious()">
+  <fa-icon [icon]="faFastBackward"></fa-icon>
+</button>
+<button mat-button color="primary" (click)="getNext()">
+  <fa-icon [icon]="faFastForward"></fa-icon>
+</button>
+<label> <input #myCheckBox type="checkbox" color="primary" [(ngModel)]="useGPS" (change)="checkValue(useGPS?true:false)" />
+  <fa-icon [icon]="faGlobe"></fa-icon>
+</label>
+<button mat-button color="primary" (click)="enableMultipleSelection()">
+  <fa-icon [icon]="faCheckDouble"></fa-icon>
+</button>
+<div>
+  <mat-sidenav-container class="example-container" style="width: 100%;">
+    <mat-sidenav #sidenav mode="side" [(opened)]="opened">
+
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker1" placeholder="set date" [formControl]="setDate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input matInput placeholder="Lat" value="0.0">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input matInput placeholder="Lon" value="0.0">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input matInput placeholder="source" value="">
+      </mat-form-field>
+      <br />Editing data for :
+      <ul>
+        <li *ngFor="let id of multiSelectedImages">{{ id }}</li>
+      </ul>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div cdkDropListGroup>
+        <div class="row">
+          <div class="column70">
+            <div cdkDropListConnectedTo="album-destination" id="source-images" cdkDropList [cdkDropListData]="images" class="gallery" cdkDropListSortingDisabled>
+              <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
+                <mat-progress-bar color="primary" mode="indeterminate">
+                </mat-progress-bar>
+              </mat-card>
+              <div class="imageCard" *ngFor="let image of images" cdkDrag>
+
+                <div class="thumbnail">
+
+                  <mat-checkbox *ngIf="multipleSelectionEnabled" (change)="selectImageValue($event.checked,image.image_id)"></mat-checkbox>
+                  <a routerLink="/detail/{{image.image_id}}">
+                    <img src='{{image.thumbnail}}' matTooltip="{{getToolTip(image)}}" matTooltipClass="test" alt='thumbnail' />
+                  </a>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column30">
+            <app-albums></app-albums>
+          </div>
+        </div>
+      </div>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+</div>

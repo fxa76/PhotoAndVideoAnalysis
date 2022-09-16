@@ -1,0 +1,20 @@
+
+.row {
+  display: flex;
+  max-height: 40vh;
+}
+
+/* Create two equal columns that sits next to each other */
+.column {
+  flex: 50%;
+  padding: 10px;
+  overflow: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height : 30vh;
+}
+.columnHiddenOverFlow {
+  flex: 50%;
+  padding: 10px;
+  overflow: hidden;
+}

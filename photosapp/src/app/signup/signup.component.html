@@ -1,0 +1,26 @@
+<div class="card">
+  <h4 class="card-header">Sign up to access :</h4>
+  <div class="card-body">
+    <form class="form-signin" [formGroup]="signupForm" (ngSubmit)="registerUser()">
+      <div class="form-group">
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput type="text" class="form-control" formControlName="name" placeholder="Enter name" required>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field>
+          <mat-label>Email address</mat-label>
+          <input matInput type="email" class="form-control" formControlName="email" placeholder="Enter email" required>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput type="password" class="form-control" formControlName="password" placeholder="Password" required>
+        </mat-form-field>
+      </div>
+      <button mat-flat-button color="primary" type="submit">Sign up</button>
+    </form>
+  </div>
+</div>
