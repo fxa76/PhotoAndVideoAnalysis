@@ -1,0 +1,370 @@
+version: '3.7'
+services:
+
+  rabbitmq:
+    build: ./rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - RABBITMQ_APP_PASSWORD=${RABBITMQ_APP_PASSWORD}
+      - RABBITMQ_ADMIN_PASSWORD=${RABBITMQ_ADMIN_PASSWORD}
+    volumes:
+      - ./rabbitmq/conf/myrabbit.conf:/etc/rabbitmq/rabbitmq.config
+      - ./rabbitmq/conf.d/management_agent.disable_metrics_collector.conf:/etc/rabbitmq/conf.d/management_agent.disable_metrics_collector.conf
+      - ./rabbitmq/logs:/var/log/rabbitmq
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:15672"]
+        interval: 30s
+        timeout: 10s
+        retries: 10
+
+  postgres:
+    build:
+      context: ./postgres_db
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres_db/data/docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/
+      - ./postgres_db/schema_backup/:/tmp/
+      # This needs explicit mapping due to https://github.com/docker-library/postgres/blob/4e48e3228a30763913ece952c611e5e9b95c8759/Dockerfile.template#L52
+      - fxa_imagesdata_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  service_layer_python:
+    build: ./service_layer_python    #build from the Dockerfile in current directory.
+    ports:
+     - 5000:5000
+    volumes:
+     - ./service_layer_python/app:/app  #mounts project directory to on the host to /app inside the container.
+     - ${PICTURES_STORAGE_DIR}:/pictures
+     - ${PICTURES_WORK_DIR}:/pictures_work
+    environment:
+      - ENV=development
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+    depends_on:
+      - postgres
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  service_file_storage:
+    build: ./service_file_storage    #build from the Dockerfile in current directory.
+    ports:
+     - 2345:2345
+     - 8092:8091
+    volumes:
+     - ./service_file_storage/app/src:/app/src  #mounts project directory to on the host to /app inside the container.
+     - ${PICTURES_STORAGE_DIR}:/pictures
+     - ${PICTURES_WORK_DIR}:/pictures_work
+     - ${PICTURES_SOURCE_DIR}:/pictures_inbox
+    working_dir: /app
+    command : npm run dev
+    environment:
+      - CHOKIDAR_USEPOLLING=1
+      - CHOKIDAR_INTERVAL=1
+      - ENV=development
+      - POSTGRES_PORT=5432
+      - NODE_ENV=development
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+    depends_on:
+      - postgres
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:2345/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  admin_layer:
+    build: ./admin_tools    #build from the Doockerfile in current directory.
+    ports:
+      - 6000:6000
+    volumes:
+     - ./admin_tools/app:/app  #mounts project directory to on the host to /app inside the container.
+     - ${PICTURES_SOURCE_DIR}:/pictures_inbox
+     - ${PICTURES_STORAGE_DIR}:/pictures
+     - ${PICTURES_WORK_DIR}:/pictures_work
+    environment:
+      - ENV=development
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - RABBITMQ_SERVER=${RABBITMQ_SERVER}
+      - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
+      - RABBITMQ_PWD=${RABBITMQ_PWD}
+    depends_on:
+        - postgres
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  service_layer_node_ts:
+    build: ./service_layer_node_ts   #build from the Doockerfile in current directory.
+    ports:
+     - 2344:2344
+     - 8091:8091
+    volumes:
+     - ./service_layer_node_ts/app/src:/app/src  #mounts project directory to on the host to /app inside the container.
+     - ${PICTURES_STORAGE_DIR}:/pictures
+     - ${PICTURES_WORK_DIR}:/pictures_work
+    working_dir: /app
+    command : npm run dev
+    environment:
+      - CHOKIDAR_USEPOLLING=1
+      - CHOKIDAR_INTERVAL=1
+      - ENV=development
+      - NODE_ENV=development
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+    depends_on:
+      - postgres
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:2344/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  pgadmin4:
+    image: dpage/pgadmin4
+    ports:
+      - 8083:80
+    environment:
+      - PGADMIN_DEFAULT_PASSWORD=pgAdminPwd
+      - PGADMIN_DEFAULT_EMAIL=albouy.fx@gmail.com
+      - PGADMIN_LISTEN_PORT=80
+    volumes:
+      - ./pgadmin/pgadmin4/servers.json:/pgadmin4/servers.json
+      - ./pgadmin/data:/var/lib/pgadmin4/storage
+    depends_on:
+      - postgres
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  angular-service: # The name of the service
+    build: ./photosapp # Location of our Dockerfile
+    volumes: # Volume binding
+      - ./photosapp/src:/app/src
+    environment:
+      - CHOKIDAR_USEPOLLING=1
+      - CHOKIDAR_INTERVAL=1
+    ports:
+      - 4200:4200 # Port mapping
+      - 49153:49153
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4200"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./docker-nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker-nginx/webcontent:/var/www
+      - ./docker-nginx/certificate:/etc/ssl
+      - ./docker-nginx/logs:/var/log/nginx
+    ports:
+      - 8088:80
+      - 443:443
+    environment:
+      - ENV=development
+      - APPLICATION_URL=https://DESKTOP-J4S3QJS
+    depends_on:
+        - service_layer_python
+        - angular-service
+        - service_layer_node_ts
+        - auth
+        - admin_layer
+    healthcheck:
+      test: ["CMD", "service", "nginx", "status"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  analysis_face_extraction:
+    build: ./analysis_face_extraction    #build from the Dockerfile in current directory.
+    #restart: on-failure
+    ports:
+      - 6001:6000
+    volumes:
+     - ./analysis_face_extraction/app:/app  #mounts project directory to on the host to /app inside the container.
+     - ${PICTURES_STORAGE_DIR}:/pictures
+     - ${PICTURES_WORK_DIR}:/pictures_work
+    depends_on:
+      - rabbitmq
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  analysis_object_extraction:
+    build: ./analysis_object_extraction    #build from the Dockerfile in current directory.
+    #restart: on-failure
+    ports:
+      - 6002:6000
+    volumes:
+     - ./analysis_object_extraction/app:/app
+     - ${PICTURES_STORAGE_DIR}:/pictures
+    depends_on:
+      - rabbitmq
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  analysis_ocr:
+    build: ./analysis_ocr    #build from the Dockerfile in current directory.
+    #restart: on-failure
+    ports:
+      - 6003:6000
+    volumes:
+     - ./analysis_ocr/app:/app  #mounts project directory to on the host to /app inside the container.
+     - ${PICTURES_STORAGE_DIR}:/pictures
+     - ${PICTURES_WORK_DIR}:/pictures_work
+    depends_on:
+      - rabbitmq
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  analysis_video_speech:
+    build: ./analysis_video_speech
+    ports:
+      - 6004:6000
+    volumes:
+      - ${PICTURES_STORAGE_DIR}:/pictures
+      - d:/tmp:/tmp/data
+      - ./analysis_video_speech/app:/app
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  analysis_engine:
+    build: ./analysis_engine    #build from the Dockerfile in current directory.
+    #restart: on-failure
+    ports:
+      - 6010:6000
+    volumes:
+      - ./analysis_engine/app:/app  #mounts project directory to on the host to /app inside the container.
+    depends_on:
+      - rabbitmq
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6010/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  insert_objects:
+    build: ./insert_objects    #build from the Dockerfile in current directory.
+    #restart: on-failure
+    ports:
+      - 6100:6000
+    volumes:
+      - ./insert_objects/app:/app
+    environment:
+      - ENV=development
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PORT=5432
+    depends_on:
+      - rabbitmq
+      - postgres
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  mongo-express:
+    image: mongo-express
+    restart: unless-stopped
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongo
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_SERVER: mongo
+
+  auth:
+    build: ./node-token-based-authentication
+    ports:
+      - 4300:4300
+      - 9229:9229
+    working_dir: /app
+    command : npm run dev
+    volumes:
+     - ./node-token-based-authentication/app/src:/app/src  #mounts project directory to on the host to /app inside the container
+    environment:
+      - CHOKIDAR_USEPOLLING=1
+      - CHOKIDAR_INTERVAL=1
+      - ENV=development
+      - NODE_ENV=development
+    depends_on:
+      - mongo
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4300"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  sonarqube:
+    image: sonarqube:community
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+    ports:
+      - "9000:9000"
+
+volumes:
+  fxa_imagesdata_postgres:
+    external: true
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
