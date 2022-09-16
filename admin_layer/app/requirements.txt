@@ -1,0 +1,12 @@
+flask
+opencv-python
+psycopg2
+imutils
+sklearn
+pika
+Pillow
+rawpy
+imageio
+pandas
+ExifRead
+ffmpeg-python
