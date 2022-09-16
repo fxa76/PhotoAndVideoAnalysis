@@ -93,11 +93,11 @@ services:
       retries: 10
 
   admin_layer:
-    build: ./admin_tools    #build from the Doockerfile in current directory.
+    build: ./admin_layer    #build from the Doockerfile in current directory.
     ports:
       - 6000:6000
     volumes:
-     - ./admin_tools/app:/app  #mounts project directory to on the host to /app inside the container.
+     - ./admin_layer/app:/app  #mounts project directory to on the host to /app inside the container.
      - ${PICTURES_SOURCE_DIR}:/pictures_inbox
      - ${PICTURES_STORAGE_DIR}:/pictures
      - ${PICTURES_WORK_DIR}:/pictures_work
