@@ -1,0 +1,7 @@
+flask
+opencv-python
+cvlib
+tensorflow
+imutils
+pika
+flask
