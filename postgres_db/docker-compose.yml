@@ -1,0 +1,42 @@
+
+version: '3.5'
+
+services:
+
+  postgres:
+    build:
+      context: .
+      shm_size: 256M
+    environment:
+      - POSTGRES_USER=fxa_images_postgres_user
+      - POSTGRES_PASSWORD=GHY88YHNZHIDEHDIE
+    ports:
+      - 5432:5432
+    networks:
+      - fxa_images_network
+    volumes:
+      - ./data/docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/
+      - ./postgresql:/var/lib/postgresql
+      # This needs explicit mapping due to https://github.com/docker-library/postgres/blob/4e48e3228a30763913ece952c611e5e9b95c8759/Dockerfile.template#L52
+      - fxa_imagesdata_postgres:/var/lib/postgresql/data
+      
+
+  pgadmin4:
+    image: dpage/pgadmin4
+    ports:
+      - 8082:80
+    environment:
+      - PGADMIN_DEFAULT_PASSWORD=pgAdminPwd
+      - PGADMIN_DEFAULT_EMAIL=fx.albouy@castsoftware.com
+      - PGADMIN_LISTEN_PORT=80
+    networks:
+      - fxa_images_network
+
+networks:
+  fxa_images_network:
+    driver: bridge
+
+volumes:
+  fxa_imagesdata_postgres:
+    external: true
+  logs:
