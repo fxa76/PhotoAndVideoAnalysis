@@ -1,0 +1,14 @@
+FILE;2;server.ts;TypeScript
+FILE;1;image.ts;TypeScript
+FILE;0;app.ts;TypeScript
+FILE;6;routes/MapRoute.ts;TypeScript
+FILE;5;routes/IndexRoute.ts;TypeScript
+FILE;4;routes/BaseRoute.ts;TypeScript
+FILE;3;routes/AlbumRoute.ts;TypeScript
+STATUS;c9344432-455d-4fc5-a4b5-6ff6efe8b854;server.ts;TypeScript;OK;
+STATUS;c9344432-455d-4fc5-a4b5-6ff6efe8b854;image.ts;TypeScript;OK;
+STATUS;c9344432-455d-4fc5-a4b5-6ff6efe8b854;app.ts;TypeScript;OK;
+STATUS;c9344432-455d-4fc5-a4b5-6ff6efe8b854;routes/MapRoute.ts;TypeScript;OK;
+STATUS;c9344432-455d-4fc5-a4b5-6ff6efe8b854;routes/IndexRoute.ts;TypeScript;OK;
+STATUS;c9344432-455d-4fc5-a4b5-6ff6efe8b854;routes/BaseRoute.ts;TypeScript;OK;
+STATUS;c9344432-455d-4fc5-a4b5-6ff6efe8b854;routes/AlbumRoute.ts;TypeScript;OK;

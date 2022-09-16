@@ -1,0 +1,11 @@
+version: '3'
+services:
+
+  web:
+    build: ./app    #build from the Doockerfile in current directory.
+    ports:
+     - "2344:2344"
+    volumes:
+     - ./app:/app  #mounts project directory to on the host to /app inside the container.
+    environment:
+      - ENV=development
