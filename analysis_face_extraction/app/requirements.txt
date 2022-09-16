@@ -1,0 +1,6 @@
+opencv-python
+cvlib
+cmake
+face_recognition
+pika
+flask
