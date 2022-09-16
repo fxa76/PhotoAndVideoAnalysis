@@ -1,0 +1,8 @@
+jsonpickle
+flask
+opencv-python
+psycopg2
+seaborn
+pandas
+numpy
+sklearn
