@@ -1,3 +1,5 @@
+Instructions to create a self signed certificate 
+
 1. build the container 
 ```
 docker build -t sslgen .
@@ -11,9 +13,9 @@ docker run -it -v c/cert:/cert --rm  sslgen /bin/bash
 3. in the container 
 ```
 cd cert
-openssl genpkey -algorithm RSA -des3 -out private-key.pem -pkeyopt rsa_keygen_bits:4096
-openssl req -new -key private-key.pem -out csr.pem
-openssl x509 -in csr.pem -out certificate.pem -req -signkey private-key.pem -days 365
+openssl req -new -newkey rsa:2048 -nodes -out FXA.csr -keyout FXA.key
+openssl req -new -key FXA.key  -out csr.pem
+openssl x509 -in csr.pem -out certificate.pem -req -signkey FXA.key -days 365
 ```
 
-if you answered the questions certificates shoudl be available on c:\cert forlder copy the cert in nginx folder
+if you answered the questions certificates shoudl be available on c:\cert forlder copy the files in docker-nginx/certificate folder
