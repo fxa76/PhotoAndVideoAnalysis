@@ -6,7 +6,7 @@ This project is develop for learning purpose, and is shared with no garantee exp
 Main technologies used are :
 1. docker
 2. nginx: unify the multiple servers behing one address)
-3. ssl: for https access
+3. ssl: for https access (you can use the provided ssl_generation docker container to generate your own slef signed certificate)
 4. databases: postgres for file informations, mongodb for token based authentication 
 5. rabbitmq: queue management 
 6. ffmpeg (video), opencv (images nad video), tesseract_ocr (ocr), yolo (object detection in images) ...
