@@ -272,21 +272,6 @@ services:
       timeout: 10s
       retries: 10
 
-  analysis_engine:
-    build: ./analysis_engine    #build from the Dockerfile in current directory.
-    #restart: on-failure
-    ports:
-      - 6010:6000
-    volumes:
-      - ./analysis_engine/app:/app  #mounts project directory to on the host to /app inside the container.
-    depends_on:
-      - rabbitmq
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:6010/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 10
-
   insert_objects:
     build: ./insert_objects    #build from the Dockerfile in current directory.
     #restart: on-failure
