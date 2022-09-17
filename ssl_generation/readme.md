@@ -5,7 +5,7 @@ docker build -t sslgen .
 
 2. run the container in interactive mode
 ```
-docker run -it -v c/cert:/cert --rm /bin/bash
+docker run -it -v c/cert:/cert --rm  sslgen /bin/bash
 ```
 
 3. in the container 
