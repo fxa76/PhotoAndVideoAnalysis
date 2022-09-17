@@ -14,8 +14,7 @@ docker run -it -v c/cert:/cert --rm  sslgen /bin/bash
 ```
 cd cert
 openssl req -new -newkey rsa:2048 -nodes -out FXA.csr -keyout FXA.key
-openssl req -new -key FXA.key  -out csr.pem
-openssl x509 -in csr.pem -out certificate.pem -req -signkey FXA.key -days 365
+openssl x509 -in FXA.csr -out certificate.pem -req -signkey FXA.key -days 365
 ```
 
 if you answered the questions certificates shoudl be available on c:\cert forlder copy the files in docker-nginx/certificate folder
