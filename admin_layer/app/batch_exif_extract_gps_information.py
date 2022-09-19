@@ -17,6 +17,18 @@ logging.config.fileConfig('logging.conf')
 logger = logging.getLogger(__name__)
 
 
+def get_coords(imagefullname):
+    lat = None
+    lon = None
+    coord_from_exif = False
+    with open(imagefullname, 'rb') as image_file:
+        tags = exifread.process_file(image_file)
+        lat, lon = egps.get_exif_location(tags)
+        coord_from_exif = True
+
+    return lat, lon, coord_from_exif
+
+
 def iterate_thru_images():
     sqlquery = """SELECT image_id, filefullname
     FROM public.images
@@ -42,13 +54,12 @@ def iterate_thru_images():
             lon = None
             coord_from_exif = False
             try:
-                with open(imagefullname, 'rb') as image_file:
-                    tags = exifread.process_file(image_file)
-                    lat, lon = egps.get_exif_location(tags)
-                    coord_from_exif = True
+                lat, lon, coord_from_exif = get_coords(imagefullname)
 
-            except(Exception)as error:
-                logger.error("Error while getting gps infor for image id {} file {}: {}".format(image_id,imagefullname,error))
+
+            except(Exception) as error:
+                logger.error(
+                    "Error while getting gps infor for image id {} file {}: {}".format(image_id, imagefullname, error))
 
             sql = """UPDATE public.images
                 SET lat = %s, lon = %s, coord_from_exif=%s
@@ -57,9 +68,9 @@ def iterate_thru_images():
                 cur2 = conn.cursor()
                 cur2.execute(sql, (lat, lon, coord_from_exif, image_id,))
                 cur2.close()
-                logger.debug("{}/{}/{}/{}/{}".format(imagefullname,lat, lon, coord_from_exif, image_id))
+                logger.debug("{}/{}/{}/{}/{}".format(imagefullname, lat, lon, coord_from_exif, image_id))
                 logger.debug("insert done")
-            except(Exception)as error:
+            except(Exception) as error:
                 logger.error("Insert Error : {}".format(error))
                 if cur2 is not None:
                     cur2.close()

@@ -32,6 +32,7 @@ import file_duplicates_finder
 import file_move
 import files_on_disk
 import file_check_if_already_in_db
+import batch_exif_extract_gps_information
 
 import batch_push_images_for_objects_extraction
 import batch_push_images_for_face_extraction
@@ -67,7 +68,7 @@ def add_file(f,source):
             date, epoch = exif_extract_date_informations.get_date(filefullname)
             #Exif data
             if extension in ['.jpg','.jpeg','.tiff']:
-                lat, lon, coord_from_exif = exif_extract_gps_coord.get_gps_coord(filefullname)
+                lat, lon, coord_from_exif = batch_exif_extract_gps_information.get_coords(filefullname)#exif_extract_gps_coord.get_gps_coord(filefullname)
                 model = exif_extract_model_informations.get_model(filefullname)
         elif extension in ['.mp4','.mov','.mpg','.avi','.3gp','.webm']:
             thumbnail = thumbnail_video_create.get_thumbnail(filefullname)
