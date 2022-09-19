@@ -134,7 +134,7 @@ def start():
             channel.basic_qos(prefetch_count=1)
             channel.basic_consume(queue='extractObjects', on_message_callback=detect_objects, auto_ack=False)
 
-            logger.info(' [*] Waiting for messages on extractObjects. To exit press CTRL+C')
+            logger.info(' [*] Waiting for messages on extractObjects.')
             channel.start_consuming()
         except (Exception) as error:
             logger.error('Rabbitmq connection failed', exc_info=True)

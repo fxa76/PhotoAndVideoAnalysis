@@ -267,7 +267,7 @@ def start():
             channel.queue_declare(queue='extractFaces', durable=True)
             channel.basic_qos(prefetch_count=1)
             channel.basic_consume(queue='extractFaces', on_message_callback=receive, auto_ack=False)
-            logger.info(' [*] Waiting for messages. To exit press CTRL+C')
+            logger.info(' [*] Waiting for messages.')
             channel.start_consuming()
         except (Exception) as error:
             logger.error('Rabbitmq connection failed', exc_info=True)
