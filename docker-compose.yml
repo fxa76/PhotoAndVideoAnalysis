@@ -217,6 +217,10 @@ services:
      - ./analysis_face_extraction/app:/app  #mounts project directory to on the host to /app inside the container.
      - ${PICTURES_STORAGE_DIR}:/pictures
      - ${PICTURES_WORK_DIR}:/pictures_work
+    environment:
+     - RABBITMQ_SERVER=${RABBITMQ_SERVER}
+     - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
+     - RABBITMQ_PWD=${RABBITMQ_PWD}
     depends_on:
       - rabbitmq
     healthcheck:
@@ -233,6 +237,10 @@ services:
     volumes:
      - ./analysis_object_extraction/app:/app
      - ${PICTURES_STORAGE_DIR}:/pictures
+    environment:
+     - RABBITMQ_SERVER=${RABBITMQ_SERVER}
+     - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
+     - RABBITMQ_PWD=${RABBITMQ_PWD}
     depends_on:
       - rabbitmq
     healthcheck:
@@ -250,6 +258,10 @@ services:
      - ./analysis_ocr/app:/app  #mounts project directory to on the host to /app inside the container.
      - ${PICTURES_STORAGE_DIR}:/pictures
      - ${PICTURES_WORK_DIR}:/pictures_work
+    environment:
+     - RABBITMQ_SERVER=${RABBITMQ_SERVER}
+     - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
+     - RABBITMQ_PWD=${RABBITMQ_PWD}
     depends_on:
       - rabbitmq
     healthcheck:
@@ -266,6 +278,10 @@ services:
       - ${PICTURES_STORAGE_DIR}:/pictures
       - d:/tmp:/tmp/data
       - ./analysis_video_speech/app:/app
+    environment:
+      - RABBITMQ_SERVER=${RABBITMQ_SERVER}
+      - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
+      - RABBITMQ_PWD=${RABBITMQ_PWD}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:6000/health"]
       interval: 30s
@@ -286,6 +302,9 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_HOST=${POSTGRES_HOST}
       - POSTGRES_PORT=5432
+      - RABBITMQ_SERVER=${RABBITMQ_SERVER}
+      - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
+      - RABBITMQ_PWD=${RABBITMQ_PWD}
     depends_on:
       - rabbitmq
       - postgres

@@ -40,8 +40,12 @@ logging.config.fileConfig('logging.conf')
 logger = logging.getLogger(__name__)
 
 def post_task(obj):
-    credentials = pika.PlainCredentials('mime_engine', '908790172834598012374')
-    parameters = pika.ConnectionParameters('rabbitmq',
+    username = os.environ['RABBITMQ_USERNAME']
+    pwd = os.environ['RABBITMQ_PWD']
+    server = os.environ['RABBITMQ_SERVER']
+
+    credentials = pika.PlainCredentials(username, pwd)
+    parameters = pika.ConnectionParameters(server,
                                    5672,
                                    '/',
                                    credentials)
