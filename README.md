@@ -1,7 +1,7 @@
 # PhotoAndVideoAnalysis
 PhotoAndVideoAnalysis is a system to store and analyze images and video files, the goal is to extract as much information as possible from the images using exif data, image recognition techniques and to provide a web interface to easily use the information extrated to retrieve photo, create albums, etc...
 
-This project is develop for learning purpose, and is shared with no garantee expressed or implied.
+This project is in development and develop for learning purpose you may expect some bad code, low security ... It is shared with no garantee expressed or implied, see license for further details. 
 
 Main technologies used are :
 1. docker
