@@ -32,7 +32,7 @@ services:
       - ./postgres_db/data/docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/
       - ./postgres_db/schema_backup/:/tmp/
       # This needs explicit mapping due to https://github.com/docker-library/postgres/blob/4e48e3228a30763913ece952c611e5e9b95c8759/Dockerfile.template#L52
-      - fxa_imagesdata_postgres:/var/lib/postgresql/data
+      - fxa_imagesdata_postgres_dev:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
@@ -348,7 +348,7 @@ services:
       - "9000:9000"
 
 volumes:
-  fxa_imagesdata_postgres:
+  fxa_imagesdata_postgres_dev:
     external: true
   sonarqube_data:
   sonarqube_extensions:
