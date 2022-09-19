@@ -5,7 +5,7 @@ This project is in development and develop for learning purpose you may expect s
 
 Main technologies used are :
 1. docker
-2. nginx: unify the multiple servers behing one address)
+2. nginx: unify the multiple servers behing one address
 3. ssl: for https access (you can use the provided ssl_generation docker container to generate your own slef signed certificate)
 4. databases: postgres for file informations, mongodb for token based authentication 
 5. rabbitmq: queue management 
