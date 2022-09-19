@@ -12,6 +12,7 @@ import argparse
 import sys
 import shutil
 
+import connection_queues
 
 #local imports
 import connection_db
@@ -92,8 +93,8 @@ def load_one_image(data):
 
             obj= {"image_id":image_id,"filefullname":data[0]};
 
-            batch_push_images_for_objects_extraction.post_task(obj,"extractObjects");
-            batch_push_images_for_face_extraction.post_task(obj,"extractFaces");
+            connection_queues.post_task(obj,"extractObjects");
+            connection_queues.post_task(obj,"extractFaces");
 
         except (Exception, psycopg2.DatabaseError) as error:
             logger.error(error,exc_info=True)
