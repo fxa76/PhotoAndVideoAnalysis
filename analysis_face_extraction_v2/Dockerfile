@@ -2,8 +2,8 @@ from analysis_engine:v1
 
 RUN apt-get update && apt-get install -y libgl1-mesa-dev
 
-ADD ./app/specific_requirements /app/specific_requirements
-ADD ./app/fx_analyzer.py /app/fx_analyzer.py
+ADD ./app/specific_requirements.txt /app
+ADD ./app/fx_analyzer.py /app
 
 WORKDIR /app
 
