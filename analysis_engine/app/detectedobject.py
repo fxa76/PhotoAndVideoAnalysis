@@ -1,0 +1,19 @@
+class DetectedObject:
+    object_id=None
+    filefullname = None
+    bbox = None
+    description = None
+    confidence = None
+    analyzer = None
+    analyzer_version = None
+    x= None
+    y= None
+    w= None
+    h= None
+    image_id = None
+    derived_from_object = None
+    object_image_filename = None
+    face_encodings = None
+    face_id = None
+    face_id_iteration = None
+    text_found = None
