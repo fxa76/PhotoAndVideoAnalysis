@@ -15,13 +15,11 @@ import time
 
 import threading
 import multiprocessing
-
-from analysis_engine.app import fx_analyzer
+from flask import Flask
 
 # local imports
-from analyser import fx_analyzer
+import fx_analyzer
 
-from flask import Flask
 
 
 app = Flask(__name__,)
