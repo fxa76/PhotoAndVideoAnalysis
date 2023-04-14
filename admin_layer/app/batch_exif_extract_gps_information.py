@@ -22,10 +22,12 @@ def get_coords(imagefullname):
     lon = None
     coord_from_exif = False
     with open(imagefullname, 'rb') as image_file:
-        tags = exifread.process_file(image_file)
-        lat, lon = egps.get_exif_location(tags)
-        coord_from_exif = True
-
+        try:
+            tags = exifread.process_file(image_file)
+            lat, lon = egps.get_exif_location(tags)
+            coord_from_exif = True
+        except (Exception) as error:
+            print(error)
     return lat, lon, coord_from_exif
 
 

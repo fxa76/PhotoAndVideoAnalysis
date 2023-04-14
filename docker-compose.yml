@@ -277,7 +277,7 @@ services:
       - 6004:6000
     volumes:
       - ${PICTURES_STORAGE_DIR}:/pictures
-      - d:/tmp:/tmp/data
+      - c:/tmp:/tmp/data
       - ./analysis_video_speech/app:/app
     environment:
       - RABBITMQ_SERVER=${RABBITMQ_SERVER}
@@ -360,7 +360,6 @@ services:
 
   mongo:
     image: mongo
-    restart: always
     ports:
       - 27017:27017
     environment:
