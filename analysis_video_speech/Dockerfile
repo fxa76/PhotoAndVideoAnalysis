@@ -1,4 +1,4 @@
-from python:3.6-stretch
+from python:3.6-buster
 #install ffmpeg
 RUN apt-get update
 RUN apt-get install -y ffmpeg
