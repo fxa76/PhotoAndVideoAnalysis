@@ -40,7 +40,7 @@ def iterate_thru_images():
           #count = cur2.rowcount
           #print(count, "Record Updated successfully ")
           cur2.close()
-          logger.debug("insert done")
+          logger.debug("insert done {}".format(image_id))
         except(Exception)as error:
           logger.error("Insert Error : {}".format(error))
           if cur2 is not None:
