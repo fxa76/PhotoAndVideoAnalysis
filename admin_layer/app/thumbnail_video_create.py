@@ -48,6 +48,7 @@ def get_base_64_small(img):
 
 def get_thumbnail(filepath):
     vidcap = cv2.VideoCapture(filepath)
+    vidcap.open(filepath)
     success,image = vidcap.read()
     count = 0
     while count<1:
@@ -58,3 +59,15 @@ def get_thumbnail(filepath):
       count += 1
     vidcap.release()
     return img
+
+if __name__ == '__main__':
+    logger.debug("starting video thumbnail creation")
+    import os
+    imagePath = '/pictures_work/test.mp4'
+    if os.path.exists(imagePath):
+        logger.debug("file found")
+        get_thumbnail(imagePath)
+    else:
+        logger.debug("file NOT found")
+
+    logger.debug("done video thumbnail creation")
