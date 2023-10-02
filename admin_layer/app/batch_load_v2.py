@@ -38,7 +38,7 @@ import batch_push_images_for_objects_extraction
 import batch_push_images_for_face_extraction
 
 logging.config.fileConfig('logging.conf')
-logger = logging.getLogger("main")
+logger = logging.getLogger(__name__)
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-s", "--source", required=False,
