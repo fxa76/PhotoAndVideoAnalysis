@@ -7,6 +7,7 @@ import random
 #local imports
 import file_calculate_sha
 import file_duplicates_finder
+import traceback
 
 #setup logging
 logging.config.fileConfig('logging.conf')
@@ -25,7 +26,8 @@ def move_file_hierarchy(fromdir,todir,src):
     try:
         os.makedirs(todir+head, exist_ok=True)
     except( FileExistsError) as exc:
-        print("directory already exists " , exc_info=True)
+        print("directory already exists ")
+        print(traceback.format_exc())
 
     try:
         if(os.path.exists(dst)):
@@ -41,7 +43,8 @@ def move_file_hierarchy(fromdir,todir,src):
         else:
             shutil.move(src,dst)
     except( OSError) as exc:
-        print("error moving file " , exc_info=True)
+        print("error moving file " )
+        print(traceback.format_exc())
     return dst
 
 #move files in the dictionnary not moving item 0, considered to be the origginal.
@@ -58,7 +61,8 @@ def move_duplicates(duplicates,source_dir,target_dir):
                 logger.info("Moved {} group of files".format(cpt))
             cpt=cpt+1
     except( OSError) as exc :
-        print("error moving file ", exc_info=True)
+        print("error moving file ")
+        print(traceback.format_exc())
     finally:
         fileHandle.close()
 
