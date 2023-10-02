@@ -1,5 +1,5 @@
 flask
-opencv-contrib-python-headless
+opencv-python-headless==4.1.1.26
 psycopg2
 imutils
 sklearn
