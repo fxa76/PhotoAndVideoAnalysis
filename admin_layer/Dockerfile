@@ -1,4 +1,4 @@
-FROM python:3.6-buster
+FROM python:3.10-buster
 
 RUN apt-get update
 RUN apt-get install -y libgl1-mesa-dev
