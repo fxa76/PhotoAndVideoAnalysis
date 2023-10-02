@@ -71,7 +71,7 @@ export class ObjectsInImagesService {
       })
     };
 
-    return this.http.get<Object_in_image[]>('https://localhost/python/get_similiar_aces_to/'+id)
+    return this.http.get<Object_in_image[]>('https://localhost/python/get_similiar_faces_to/'+id)
   }
 
   /** GET: update the hero on the server */

@@ -90,7 +90,7 @@ def updateImage():
 
     return  json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
-@app.route('/get_similiar_aces_to/<string:id>')
+@app.route('/get_similiar_faces_to/<string:id>')
 def get_similar_faces(id):
     return jsonpickle.encode(find_faces_by_distance.get_similar_to_id(id))
 
