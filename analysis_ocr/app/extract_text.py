@@ -94,7 +94,8 @@ def detect_text(ch, method, properties, body):
                 logger.debug("Pushed OBJ {}".format(obj_task))
             else:
                 for i in range(n_boxes):
-                    #if len(d['text'][i].replace(' ', '')) > 0:
+                    #needed to avoid insertion of space only
+                    if len(d['text'][i].replace(' ', '')) > 0:
                         (x, y, w, h) = (d['left'][i], d['top'][i], d['width'][i], d['height'][i])
                         logger.debug("Pushing OBJ {}".format(obj))
                         obj_task = {
