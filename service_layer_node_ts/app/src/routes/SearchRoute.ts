@@ -56,7 +56,7 @@ export class SearchRoute extends BaseRoute {
 
     var fromPart = this.build_request(req.body);
 
-    var sql = 'SELECT description,count(image_id) as amount from objects obj where obj.image_id in (( select image_id ' + fromPart + ' )) group by description'
+    var sql = 'SELECT description,count(image_id) as amount from objects obj where obj.image_id in (( select image_id ' + fromPart + ' )) group by description order by description asc'
     console.log("" + sql);
 
     this.pg.query( sql, (err, result) => {
@@ -82,7 +82,7 @@ export class SearchRoute extends BaseRoute {
     req.body.next=null;
     var fromPart = this.build_request(req.body);
 
-    var sql = 'SELECT model as name,count(image_id) as count from images where image_id in (( select image_id ' + fromPart + ' )) group by model'
+    var sql = 'SELECT model as name,count(image_id) as count from images where image_id in (( select image_id ' + fromPart + ' )) group by model order by model asc'
     console.log("" + sql);
 
     this.pg.query( sql, (err, result) => {
@@ -109,7 +109,7 @@ export class SearchRoute extends BaseRoute {
     req.body.use_coords=false;
     var fromPart = this.build_request(req.body);
 
-    var sql = 'SELECT fileextensions as name,count(image_id) as count from images where image_id in (( select image_id ' + fromPart + ' )) group by fileextensions'
+    var sql = 'SELECT fileextensions as name,count(image_id) as count from images where image_id in (( select image_id ' + fromPart + ' )) group by fileextensions order by fileextensions asc'
     console.log("" + sql);
 
     this.pg.query( sql, (err, result) => {

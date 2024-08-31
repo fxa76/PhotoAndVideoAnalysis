@@ -23,7 +23,7 @@ def get_large_audio_transcription(path):
                               # experiment with this value for your target audio file
                               min_silence_len=500,
                               # adjust this per requirement
-                              silence_thresh=sound.dBFS - 14,
+                              silence_thresh=sound.dBFS - 7,
                               # keep the silence for 1 second, adjustable as well
                               keep_silence=500,
                               )
@@ -105,6 +105,8 @@ def get_text(video_path):
     return get_large_audio_transcription(audio_path)
 
 if __name__ == '__main__':
-    audio_path = extract_audio("/tmp/data/test.mov")
-    get_large_audio_transcription(audio_path)
-    shortwav(audio_path)
+    #audio_path = extract_audio("/tmp/data/test.mov")
+    audio_path="C:/tmp/test/R20240109-100027.WAV"
+    text = get_large_audio_transcription(audio_path)
+    print(text)
+    #shortwav(audio_path)

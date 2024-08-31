@@ -1,6 +1,6 @@
-opencv-python
-cvlib
-cmake
+umpy==1.26.4
+opencv-python-headless==4.10.0.84
+dlib==19.23.1
 face_recognition
 pika
 flask

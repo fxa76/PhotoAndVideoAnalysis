@@ -29,7 +29,11 @@ __pycache__
 /analysis_video_speech/app/__pycache__
 rabbitmq/logs/log/crash.log.4
 rabbitmq/logs/log/crash.log
-
+/image_src_folder
+/image_storage_folder
+/image_work_folder
+/docker-nginx/certificate
+*\idea
 *.ogg
 *.mov
 *.pyc

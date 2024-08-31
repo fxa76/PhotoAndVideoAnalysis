@@ -40,7 +40,7 @@ export class D3ImageViewerComponent implements OnInit {
     var svg =  d3.select(this.hostElement).select("#imageZone")
 
     var view_w = 1000
-    var view_h = 800
+    var view_h = 600
     var g = svg
       .attr("width", view_w)
       .attr("height", view_h)

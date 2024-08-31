@@ -56,6 +56,8 @@ import multiprocessing
 
 from flask import Flask
 
+print("line 59")
+
 app = Flask(__name__,)
 
 @app.route('/')
@@ -149,7 +151,7 @@ def extract_and_encode_face(ch, method, properties, body):
     logger.debug("Processing image_id : {} file: {}".format(image_id,f))
 
     try:
-        img = cv2.imread(f)#dlib.load_rgb_image(f)
+        img = cv2.imread(f, cv2.IMREAD_COLOR) #dlib.load_rgb_image(f)
 
         # Ask the detector to find the bounding boxes of each face. The 1 in the
         # second argument indicates that we should upsample the image 1 time. This
@@ -275,6 +277,7 @@ def start():
 
 
 if __name__ == '__main__':
+    print("hello")
     logger.info("starting face extraction consumption")
 
     #start server for API healthchecks.

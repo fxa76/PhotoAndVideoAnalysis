@@ -231,7 +231,7 @@ CREATE TABLE public.objects (
     face_encodings double precision[],
     face_id integer,
     face_id_iteration integer,
-    text_found character varying COLLATE pg_catalog."C.UTF-8"
+    text_found varchar NULL
 );
 
 
