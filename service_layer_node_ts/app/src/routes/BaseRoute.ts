@@ -24,7 +24,7 @@ export class BaseRoute {
   };
 
   build_request(param:any):string{
-    console.log("received param " + param.source);
+    console.log("received param " + param.sources);
 
     var offset = param.offset;
     var next = param.next;
@@ -49,7 +49,7 @@ export class BaseRoute {
     //only use the join with objects if looking for objects
     var sql = "";
     if( descriptions !=null && descriptions.length > 0 ){
-      sql = " from ( SELECT img.image_id, img.filefullname, img.filename, img.filepath, img.fileextensions, img.filesize, img.creationdate,img.lat, img.lon,img.to_be_deleted, img.model,img.coord_from_exif, img.thumbnail "
+      sql = " from ( SELECT img.image_id, img.source, img.filefullname, img.filename, img.filepath, img.fileextensions, img.filesize, img.creationdate,img.lat, img.lon,img.to_be_deleted, img.model,img.coord_from_exif, img.thumbnail "
 
       console.log("object descriptions")
       descriptions.forEach(function(desc:any){
@@ -122,8 +122,8 @@ export class BaseRoute {
         sources.forEach(function(source:any){
           if (cpt > 0) {
               sql = sql + " or ";
-          }
-          sql = sql + " source = '"+source.name+"'"
+          } 
+          sql = sql + '"source" = '+"'"+source.name+"'"
           cpt=cpt+1;
         });
         sql = sql + ")"

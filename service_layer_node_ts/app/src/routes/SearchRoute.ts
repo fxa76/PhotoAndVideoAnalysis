@@ -84,7 +84,7 @@ export class SearchRoute extends BaseRoute {
     req.body.next=null;
     var fromPart = this.build_request(req.body);
 
-    var sql = 'SELECT model as name,count(image_id) as count from images where image_id in (( select image_id ' + fromPart + ' )) group by model order by model asc'
+    var sql = 'SELECT model as name,count(image_id) as count from images where image_id in (( select image_id ' + fromPart + ' )) group by name order by name asc'
     console.log("" + sql);
 
     this.pg.query( sql, (err, result) => {
@@ -111,7 +111,7 @@ export class SearchRoute extends BaseRoute {
     req.body.use_coords=false;
     var fromPart = this.build_request(req.body);
 
-    var sql = 'SELECT fileextensions as name,count(image_id) as count from images where image_id in (( select image_id ' + fromPart + ' )) group by fileextensions order by fileextensions asc'
+    var sql = 'SELECT fileextensions as name,count(image_id) as count from images where image_id in (( select image_id ' + fromPart + ' )) group by name order by name asc'
     console.log("" + sql);
 
     this.pg.query( sql, (err, result) => {
@@ -133,12 +133,12 @@ export class SearchRoute extends BaseRoute {
    */
   public searchSources(req: Request, res: Response, next: NextFunction) {
     //nullify offset and next so the search is not limited to what the image page can show.
-    req.body.offset=null;
+    req.body.offset=null; 
     req.body.next=null;
     req.body.use_coords=false;
     var fromPart = this.build_request(req.body);
 
-    var sql = 'SELECT "source" as name,count(image_id) as count from images where image_id in (( select image_id ' + fromPart + ' )) group by "source" order by "source" asc'
+    var sql = 'SELECT "source" as name,count(image_id) as count from images where image_id in (( select image_id ' + fromPart + ' )) group by name order by name asc'
     console.log("" + sql);
 
     this.pg.query( sql, (err, result) => {
