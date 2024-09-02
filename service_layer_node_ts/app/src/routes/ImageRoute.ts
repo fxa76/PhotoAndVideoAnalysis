@@ -65,6 +65,7 @@ export class ImageRoute extends BaseRoute {
     if(offset != null && next_offset !=null){
       sql = sql + "  OFFSET "+offset+" ROWS FETCH NEXT "+next_offset+" ROWS ONLY"
     }
+
     console.log("running query")
     this.pg.query(sql, (err, result) => {
       if (err) {

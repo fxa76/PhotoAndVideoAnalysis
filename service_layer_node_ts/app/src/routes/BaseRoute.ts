@@ -148,8 +148,8 @@ export class BaseRoute {
         });
       }
 
-
-      sql = sql + " order by creationdate desc"
+      //use timestamp instead of creation date as timestamp can be modified in interface to reorder pictures
+      sql = sql + " order by timestamp desc"
 
       console.log("from part of sql : "+sql)
       return sql
