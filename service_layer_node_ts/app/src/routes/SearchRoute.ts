@@ -33,6 +33,9 @@ export class SearchRoute extends BaseRoute {
     router.post("/v2/searchSources", (req: Request, res: Response, next: NextFunction) => {
       searchRoutes.searchSources(req, res, next);
    });
+   router.post("/v2/searchCountTotal", (req: Request, res: Response, next: NextFunction) => {
+    searchRoutes.searchCountTotal(req, res, next);
+ });
   }
 
   /**
@@ -146,6 +149,34 @@ export class SearchRoute extends BaseRoute {
         throw err
       }
       res.status(200).json(result.rows)
+    })
+  }
+
+
+  /**
+   * The home page route.
+   *
+   * @class IndexRoute
+   * @method index
+   * @param req {Request} The express Request object.
+   * @param res {Response} The express Response object.
+   * @next {NextFunction} Execute the next method.
+   */
+  public searchCountTotal(req: Request, res: Response, next: NextFunction) {
+    //nullify offset and next so the search is not limited to what the image page can show.
+    req.body.offset=null; 
+    req.body.next=null;
+    req.body.use_coords=false;
+    var fromPart = this.build_request(req.body);
+
+    var sql = 'SELECT count(image_id) as count from images where image_id in (( select image_id ' + fromPart + ' ))'
+    console.log("" + sql);
+
+    this.pg.query( sql, (err, result) => {
+      if (err) {
+        throw err
+      }
+      res.status(200).json(result.rows[0].count)
     })
   }
 }

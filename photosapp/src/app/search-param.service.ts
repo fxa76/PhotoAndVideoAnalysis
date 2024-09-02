@@ -21,6 +21,7 @@ export class SearchParamService extends GenericService {
   possibleCameras: Camera[];
   possibleFileformats: FileFormat[];
   possibleSources: Source[];
+  totalImagesCount:number;
 
   constructor(protected http: HttpClient, protected messageService: MessageService) {
     super(http, messageService);
@@ -40,6 +41,9 @@ export class SearchParamService extends GenericService {
 
     this.searchParam.offset = 0;
     this.searchParam.next = 100;
+
+    this.totalImagesCount =0;
+
     this.getObjectsDescriptions(this.searchParam)
       .subscribe(descriptions => {
         this.possibleDescriptions = descriptions
@@ -62,6 +66,12 @@ export class SearchParamService extends GenericService {
       .subscribe(descriptions => {
         this.possibleSources = descriptions
         console.log("Sources descriptions ready!!"+descriptions);
+      }
+      );
+    this.getTotalCount(this.searchParam)
+      .subscribe(totalCount => {
+        this.totalImagesCount = totalCount
+        console.log("total images ready!!"+totalCount);
       }
       );
   }
@@ -120,6 +130,19 @@ export class SearchParamService extends GenericService {
     };
     this.log(`fetching sources descriptions`);
     return this.http.post<Source[]>('https://localhost/capi2/v2/searchSources', searchParam, httpOptions);
+  }
+ 
+  getTotalCount(searchParam): Observable<number> {
+    if (this.searchParam.sources.length > 0) {
+      console.log("some sources criteria already selected");
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    this.log(`fetching total count of images for filter`);
+    return this.http.post<number>('https://localhost/capi2/v2/searchCountTotal', searchParam, httpOptions);
   }
 
   getPossibleDescriptions(): Description[] {

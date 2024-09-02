@@ -37,6 +37,7 @@ export class SearchParamComponent implements OnInit {
   public fileformatsToBeIncluded : FileFormat[]=[];
   public sources : Source[]=[];
   public sourcesToBeIncluded : Source[]=[];
+  public totalImagesCount: number;
   
 
   constructor( public searchParamService: SearchParamService, private objInImageService : ObjectsInImagesService  ) {
@@ -54,6 +55,7 @@ export class SearchParamComponent implements OnInit {
     this.camerasToBeIncluded = this.searchParamService.searchParam.cameramodels;
     this.fileformatsToBeIncluded = this.searchParamService.searchParam.fileformats;
     this.sourcesToBeIncluded = this.searchParamService.searchParam.sources;
+    this.totalImagesCount = this.searchParamService.totalImagesCount;
 
     //descriptions
     this.searchParamService.getObjectsDescriptions(this.searchParamService.searchParam)
@@ -105,6 +107,12 @@ export class SearchParamComponent implements OnInit {
               }
             }
           }
+    });
+
+    //get Count
+    this.searchParamService.getTotalCount(this.searchParamService.searchParam)
+        .subscribe(count =>{
+          this.totalImagesCount = count;          
     });
 
     console.log("out")
@@ -242,6 +250,12 @@ export class SearchParamComponent implements OnInit {
             }
           }
         });
+
+      //get Count
+      this.searchParamService.getTotalCount(this.searchParamService.searchParam)
+        .subscribe(count =>{
+        this.totalImagesCount = count;          
+      });
   }
 
   checkValue(event: any){
