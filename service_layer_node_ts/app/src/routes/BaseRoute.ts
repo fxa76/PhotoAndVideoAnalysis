@@ -43,7 +43,7 @@ export class BaseRoute {
     var fileformats = param.fileformats;
     var sources = param.sources;
 
-    //var source = param.source;
+    var comments = param.comments;
 
 
     //only use the join with objects if looking for objects
@@ -66,9 +66,9 @@ export class BaseRoute {
       //Define the WHERE clause
       sql = sql + " where to_be_deleted != true"
 
-      /*if (source != null && source.length>0){
-        sql = sql + " and source ~ '"+source+"'"
-      }*/
+      if (comments != null && comments.length>0){
+        sql = sql + " and comments ~ '"+comments+"'"
+      }
 
       //define date interval
       console.log("date interval")

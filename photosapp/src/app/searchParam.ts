@@ -17,7 +17,7 @@ export class SearchParam {
   sources: Source[];
   offset: number;
   next: number;
-  source: string = "";
+  comments: string = "";
   iteration: string;
   id: string;
 }

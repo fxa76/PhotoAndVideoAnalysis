@@ -33,6 +33,7 @@ export class SearchParamService extends GenericService {
     this.searchParam.todate = 2097960740;
     this.searchParam.dateIsNull = false;
     this.searchParam.gpsIsNull = false;
+    this.searchParam.comments="";
 
     this.searchParam.descriptions = [];
     this.searchParam.cameramodels = [];
