@@ -180,6 +180,9 @@ export class SearchParamComponent implements OnInit {
 
     console.log(this.descriptionsToBeIncluded);
     this.searchParamService.searchParam.descriptions = this.descriptionsToBeIncluded;
+    this.searchParamService.searchParam.cameramodels = this.camerasToBeIncluded;
+    this.searchParamService.searchParam.fileformats = this.fileformatsToBeIncluded;
+    this.searchParamService.searchParam.sources = this.sourcesToBeIncluded;
     console.log(this.searchParamService.searchParam);
     
     //get possible objects for considered search params
@@ -197,7 +200,7 @@ export class SearchParamComponent implements OnInit {
 
       //get cameras  for considered search params
       console.log(this.camerasToBeIncluded);
-      this.searchParamService.searchParam.cameramodels = this.camerasToBeIncluded;
+      
       this.searchParamService.getCameraModelsDescriptions(this.searchParamService.searchParam)
         .subscribe(cameras =>{
           this.cameras = cameras
@@ -212,7 +215,7 @@ export class SearchParamComponent implements OnInit {
         
       //get fileformats  for considered search params
       console.log(this.fileformatsToBeIncluded);
-      this.searchParamService.searchParam.fileformats = this.fileformatsToBeIncluded;
+      
       this.searchParamService.getFileFormatsDescriptions(this.searchParamService.searchParam)
         .subscribe(fileformats =>{
           this.fileformats = fileformats
@@ -227,7 +230,7 @@ export class SearchParamComponent implements OnInit {
       
       //get sources  for considered search params
       console.log(this.sourcesToBeIncluded);
-      this.searchParamService.searchParam.sources = this.sourcesToBeIncluded;
+      
       this.searchParamService.getSourcesDescriptions(this.searchParamService.searchParam)
         .subscribe(sources =>{
           this.sources = sources
