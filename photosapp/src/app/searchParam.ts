@@ -1,6 +1,7 @@
 import { Description } from './description';
 import { Camera } from './camera';
 import { FileFormat } from './fileformat';
+import { Source } from './source';
 
 export class SearchParam {
   use_coords: boolean;
@@ -13,6 +14,7 @@ export class SearchParam {
   descriptions: Description[];
   cameramodels: Camera[];
   fileformats: FileFormat[];
+  sources: Source[];
   offset: number;
   next: number;
   source: string = "";

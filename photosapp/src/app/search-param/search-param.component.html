@@ -129,4 +129,20 @@
       </div>
     </div>
   </div>
+
+  <div class="columnHiddenOverFlow">
+    <div class="row">
+      <h4>Sources</h4>
+    </div>
+    <div class="row">
+      <div class="column">
+        <div *ngFor="let desc of sources">
+          <mat-checkbox type="checkbox" [(ngModel)]="desc.selected" (change)="checkValue(desc.selected?true:false)">
+            <mat-label>{{desc.name}} {{desc.count}}</mat-label>
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

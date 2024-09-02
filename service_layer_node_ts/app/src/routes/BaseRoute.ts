@@ -41,8 +41,9 @@ export class BaseRoute {
     var descriptions = param.descriptions;
     var cameramodels = param.cameramodels;
     var fileformats = param.fileformats;
+    var sources = param.sources;
 
-    var source = param.source;
+    //var source = param.source;
 
 
     //only use the join with objects if looking for objects
@@ -65,9 +66,9 @@ export class BaseRoute {
       //Define the WHERE clause
       sql = sql + " where to_be_deleted != true"
 
-      if (source != null && source.length>0){
+      /*if (source != null && source.length>0){
         sql = sql + " and source ~ '"+source+"'"
-      }
+      }*/
 
       //define date interval
       console.log("date interval")
@@ -114,6 +115,19 @@ export class BaseRoute {
           });
           sql = sql + ")"
       }
+
+      if (sources !=null && sources.length > 0){
+        sql = sql + " AND (";
+        var cpt = 0;
+        sources.forEach(function(source:any){
+          if (cpt > 0) {
+              sql = sql + " or ";
+          }
+          sql = sql + " source = '"+source.name+"'"
+          cpt=cpt+1;
+        });
+        sql = sql + ")"
+    }
 
       //define number of objects
       console.log("object descriptions")

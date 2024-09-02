@@ -10,6 +10,7 @@ import { Object_in_image } from './object_in_image';
 import { Description } from './description';
 import { Camera } from './camera';
 import { FileFormat } from './fileformat';
+import { Source } from './source';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class SearchParamService extends GenericService {
   possibleDescriptions: Description[];
   possibleCameras: Camera[];
   possibleFileformats: FileFormat[];
+  possibleSources: Source[];
 
   constructor(protected http: HttpClient, protected messageService: MessageService) {
     super(http, messageService);
@@ -34,6 +36,7 @@ export class SearchParamService extends GenericService {
     this.searchParam.descriptions = [];
     this.searchParam.cameramodels = [];
     this.searchParam.fileformats = [];
+    this.searchParam.sources = [];
 
     this.searchParam.offset = 0;
     this.searchParam.next = 100;
@@ -52,7 +55,13 @@ export class SearchParamService extends GenericService {
     this.getFileFormatsDescriptions(this.searchParam)
       .subscribe(descriptions => {
         this.possibleFileformats = descriptions
-        console.log("FielFormats descriptions ready!!");
+        console.log("FileFormats descriptions ready!!");
+      }
+      );
+    this.getSourcesDescriptions(this.searchParam)
+      .subscribe(descriptions => {
+        this.possibleSources = descriptions
+        console.log("Sources descriptions ready!!"+descriptions);
       }
       );
   }
@@ -85,6 +94,7 @@ export class SearchParamService extends GenericService {
     return this.http.post<Camera[]>('https://localhost/capi2/v2/searchModels', searchParam, httpOptions);
 
   }
+  
   getFileFormatsDescriptions(searchParam): Observable<FileFormat[]> {
     if (this.searchParam.descriptions.length > 0) {
       console.log("some description criteria already selected");
@@ -97,7 +107,19 @@ export class SearchParamService extends GenericService {
     this.log(`fetching file formats descriptions`);
     //return this.http.get<Camera[]>('https://localhost/python/list_camera_models');//,searchParam,httpOptions);
     return this.http.post<FileFormat[]>('https://localhost/capi2/v2/searchFileFormats', searchParam, httpOptions);
+  }
 
+  getSourcesDescriptions(searchParam): Observable<FileFormat[]> {
+    if (this.searchParam.sources.length > 0) {
+      console.log("some sources criteria already selected");
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    this.log(`fetching sources descriptions`);
+    return this.http.post<Source[]>('https://localhost/capi2/v2/searchSources', searchParam, httpOptions);
   }
 
   getPossibleDescriptions(): Description[] {

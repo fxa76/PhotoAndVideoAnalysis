@@ -10,6 +10,7 @@ import { SearchParam } from '../searchParam';
 import { Description } from '../description';
 import { Camera } from '../camera';
 import { FileFormat } from '../fileformat';
+import { Source } from '../source';
 
 import { ObjectsInImagesService } from '../objects-in-images.service';
 
@@ -18,6 +19,7 @@ import { ObjectsInImagesService } from '../objects-in-images.service';
   templateUrl: './search-param.component.html',
   styleUrls: ['./search-param.component.css']
 })
+
 export class SearchParamComponent implements OnInit {
   faRedo=faRedo;
 
@@ -33,12 +35,15 @@ export class SearchParamComponent implements OnInit {
   public camerasToBeIncluded : Camera[]=[];
   public fileformats : FileFormat[]=[];
   public fileformatsToBeIncluded : FileFormat[]=[];
+  public sources : Source[]=[];
+  public sourcesToBeIncluded : Source[]=[];
+  
 
   constructor( public searchParamService: SearchParamService, private objInImageService : ObjectsInImagesService  ) {
   }
 
   ngOnInit() {
-    console.log("in")
+    console.log("init")
     this.startDate = new FormControl(new Date(this.searchParamService.searchParam.fromdate*1000));
     this.endDate =  new FormControl(new Date(this.searchParamService.searchParam.todate*1000));
     this.dateIsNull=  this.searchParamService.searchParam.dateIsNull;
@@ -48,7 +53,9 @@ export class SearchParamComponent implements OnInit {
     this.descriptionsToBeIncluded = this.searchParamService.searchParam.descriptions;
     this.camerasToBeIncluded = this.searchParamService.searchParam.cameramodels;
     this.fileformatsToBeIncluded = this.searchParamService.searchParam.fileformats;
+    this.sourcesToBeIncluded = this.searchParamService.searchParam.sources;
 
+    //descriptions
     this.searchParamService.getObjectsDescriptions(this.searchParamService.searchParam)
         .subscribe(descriptions =>{
           this.descriptions = descriptions;
@@ -61,6 +68,7 @@ export class SearchParamComponent implements OnInit {
           }
         });
 
+    //camera models
     this.searchParamService.getCameraModelsDescriptions(this.searchParamService.searchParam)
         .subscribe(cameras =>{
           this.cameras = cameras;
@@ -73,6 +81,7 @@ export class SearchParamComponent implements OnInit {
           }
         });
 
+    //file formats
     this.searchParamService.getFileFormatsDescriptions(this.searchParamService.searchParam)
         .subscribe(fileformats =>{
           this.fileformats = fileformats;
@@ -83,7 +92,21 @@ export class SearchParamComponent implements OnInit {
               }
             }
           }
-        });
+    });
+
+    //sources
+    this.searchParamService.getSourcesDescriptions(this.searchParamService.searchParam)
+        .subscribe(sources =>{
+          this.sources = sources;
+          for (let descInc of this.searchParamService.searchParam.sources){
+            for (let desc of this.sources){
+              if(descInc.name === desc.name){
+                desc.selected = true;
+              }
+            }
+          }
+    });
+
     console.log("out")
   }
 
@@ -116,6 +139,8 @@ export class SearchParamComponent implements OnInit {
     this.descriptionsToBeIncluded =[];
     this.camerasToBeIncluded =[];
     this.fileformatsToBeIncluded =[];
+    this.sourcesToBeIncluded =[];
+
     //add selected objects
     for (let desc of this.descriptions){
       if(desc.selected){
@@ -134,8 +159,8 @@ export class SearchParamComponent implements OnInit {
         this.camerasToBeIncluded.push(descToInclude2)
       }
     }
-    //add sletected file formats
-    //add selected cameras
+    
+    //add selected file formats
     for (let desc of this.fileformats){
       if(desc.selected){
         var descToInclude2 = new FileFormat();
@@ -143,10 +168,20 @@ export class SearchParamComponent implements OnInit {
         this.fileformatsToBeIncluded.push(descToInclude2)
       }
     }
+    //add selected sources
+    for (let desc of this.sources){
+      if(desc.selected){
+        var descToInclude2 = new Source();
+        descToInclude2.name = desc.name;
+        this.sourcesToBeIncluded.push(descToInclude2)
+      }
+    }
+
 
     console.log(this.descriptionsToBeIncluded);
     this.searchParamService.searchParam.descriptions = this.descriptionsToBeIncluded;
     console.log(this.searchParamService.searchParam);
+    
     //get possible objects for considered search params
     this.searchParamService.getObjectsDescriptions(this.searchParamService.searchParam)
       .subscribe(descriptions =>{
@@ -159,6 +194,7 @@ export class SearchParamComponent implements OnInit {
           }
         }
       });
+
       //get cameras  for considered search params
       console.log(this.camerasToBeIncluded);
       this.searchParamService.searchParam.cameramodels = this.camerasToBeIncluded;
@@ -173,20 +209,36 @@ export class SearchParamComponent implements OnInit {
             }
           }
         });
-        //get fileformats  for considered search params
-        console.log(this.fileformatsToBeIncluded);
-        this.searchParamService.searchParam.fileformats = this.fileformatsToBeIncluded;
-        this.searchParamService.getFileFormatsDescriptions(this.searchParamService.searchParam)
-          .subscribe(fileformats =>{
-            this.fileformats = fileformats
-            for (let desc of this.fileformats){
-              for (let descInc of this.fileformatsToBeIncluded){
-                if(desc.name == descInc.name){
-                  desc.selected=true;
-                }
+        
+      //get fileformats  for considered search params
+      console.log(this.fileformatsToBeIncluded);
+      this.searchParamService.searchParam.fileformats = this.fileformatsToBeIncluded;
+      this.searchParamService.getFileFormatsDescriptions(this.searchParamService.searchParam)
+        .subscribe(fileformats =>{
+          this.fileformats = fileformats
+          for (let desc of this.fileformats){
+            for (let descInc of this.fileformatsToBeIncluded){
+              if(desc.name == descInc.name){
+                desc.selected=true;
               }
             }
-          });
+          }
+        });
+      
+      //get sources  for considered search params
+      console.log(this.sourcesToBeIncluded);
+      this.searchParamService.searchParam.sources = this.sourcesToBeIncluded;
+      this.searchParamService.getSourcesDescriptions(this.searchParamService.searchParam)
+        .subscribe(sources =>{
+          this.sources = sources
+          for (let desc of this.sources){
+            for (let descInc of this.sourcesToBeIncluded){
+              if(desc.name == descInc.name){
+                desc.selected=true;
+              }
+            }
+          }
+        });
   }
 
   checkValue(event: any){

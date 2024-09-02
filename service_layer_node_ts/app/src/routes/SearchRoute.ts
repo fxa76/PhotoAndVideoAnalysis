@@ -30,7 +30,9 @@ export class SearchRoute extends BaseRoute {
     router.post("/v2/searchFileFormats", (req: Request, res: Response, next: NextFunction) => {
        searchRoutes.searchFileFormats(req, res, next);
     });
-
+    router.post("/v2/searchSources", (req: Request, res: Response, next: NextFunction) => {
+      searchRoutes.searchSources(req, res, next);
+   });
   }
 
   /**
@@ -110,6 +112,33 @@ export class SearchRoute extends BaseRoute {
     var fromPart = this.build_request(req.body);
 
     var sql = 'SELECT fileextensions as name,count(image_id) as count from images where image_id in (( select image_id ' + fromPart + ' )) group by fileextensions order by fileextensions asc'
+    console.log("" + sql);
+
+    this.pg.query( sql, (err, result) => {
+      if (err) {
+        throw err
+      }
+      res.status(200).json(result.rows)
+    })
+  }
+
+  /**
+   * The home page route.
+   *
+   * @class IndexRoute
+   * @method index
+   * @param req {Request} The express Request object.
+   * @param res {Response} The express Response object.
+   * @next {NextFunction} Execute the next method.
+   */
+  public searchSources(req: Request, res: Response, next: NextFunction) {
+    //nullify offset and next so the search is not limited to what the image page can show.
+    req.body.offset=null;
+    req.body.next=null;
+    req.body.use_coords=false;
+    var fromPart = this.build_request(req.body);
+
+    var sql = 'SELECT "source" as name,count(image_id) as count from images where image_id in (( select image_id ' + fromPart + ' )) group by "source" order by "source" asc'
     console.log("" + sql);
 
     this.pg.query( sql, (err, result) => {
