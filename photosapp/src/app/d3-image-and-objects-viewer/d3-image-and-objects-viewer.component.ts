@@ -70,7 +70,7 @@ export class D3ImageAndObjectsViewerComponent implements OnInit {
 
     //define zoom settings
     var zoomFn = d3.zoom()
-          .scaleExtent([-10, 40])
+          .scaleExtent([0.01, 40])
           .on('zoom', function() {
               console.log("zooming")
               g.attr("transform", d3.event.transform)

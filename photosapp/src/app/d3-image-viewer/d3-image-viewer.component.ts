@@ -40,7 +40,7 @@ export class D3ImageViewerComponent implements OnInit {
     var svg =  d3.select(this.hostElement).select("#imageZone")
 
     var view_w = 1000
-    var view_h = 600
+    var view_h = 700
     var g = svg
       .attr("width", view_w)
       .attr("height", view_h)
@@ -48,8 +48,7 @@ export class D3ImageViewerComponent implements OnInit {
 
     g.append('image')
       .attr('xlink:href', image.image_base64)
-      .attr('width', 800)
-      .attr('height', 700)
+  
     //debug info to show image id
     g.append('text')
       .attr("x",100)
@@ -57,7 +56,7 @@ export class D3ImageViewerComponent implements OnInit {
       .text(image.image_id)
 
       var zoomFn = d3.zoom()
-          .scaleExtent([1, 40])
+          .scaleExtent([0.01, 40])
           .on('zoom', function() {
               console.log("zooming")
               g.attr("transform", d3.event.transform)
@@ -76,8 +75,7 @@ export class D3ImageViewerComponent implements OnInit {
      ratio = ratio_w;
     }
     svg.call(zoomFn.transform, d3.zoomIdentity.scale(ratio))
+
+
   }
-
-
-
 }

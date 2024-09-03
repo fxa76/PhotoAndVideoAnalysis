@@ -40,14 +40,14 @@
       <div>Source : {{image.source}}</div>
       <div>File size : {{image.filesize}}</div>
       <div> <a mat-button href="/fs/v1/get_file/{{image.image_id}}">get file</a></div>
+      <div>Comments:</div>
+      <div>
+        <textarea [(ngModel)]="image.comments" placeholder="comments" rows="3" cols="40"></textarea>
+      </div>
       <UL>
         <label>Other names for this file: </label>
         <li *ngFor="let item of image.othernames; let i = index">{{i}} -- {{item}}</li>
       </UL>
     </div>
   </div>
-  <div class="row">
-    <label>comments:
-      <textarea [(ngModel)]="image.comments" placeholder="comments" rows="3" cols="90"></textarea>
-    </label>
-  </div>
+  
