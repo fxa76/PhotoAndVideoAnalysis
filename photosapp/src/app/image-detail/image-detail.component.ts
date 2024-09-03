@@ -1,26 +1,32 @@
 import { Component, OnInit,Input} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import { ViewChild } from '@angular/core';
 
-import { faArrowCircleLeft,faSave,faObjectGroup } from '@fortawesome/free-solid-svg-icons';
+import { faArrowCircleLeft,faArrowCircleRight,faSave,faObjectGroup } from '@fortawesome/free-solid-svg-icons';
 
 import { Image } from '../image';
 import { ImageService } from '../image.service';
 import { D3ImageViewerComponent} from '../d3-image-viewer/d3-image-viewer.component';
+import { SearchParamService } from '../search-param.service';
 
 @Component({
   selector: 'app-image-detail',
   templateUrl: './image-detail.component.html',
   styleUrls: ['./image-detail.component.css']
 })
+
 export class ImageDetailComponent implements OnInit {
+
   faArrowCircleLeft=faArrowCircleLeft;
+  faArrowCircleRight=faArrowCircleRight;
   faSave=faSave;
   faObjectGroup=faObjectGroup;
 
   isLoading:boolean = true;
+  isLoadingList:boolean = true;
+
   @Input() image: Image;
   @Input() creationDate = '1900-01-01';
   @Input() creationTime = '12:01:01';
@@ -28,11 +34,21 @@ export class ImageDetailComponent implements OnInit {
   @ViewChild('imageViewer', { static: true }) chart: D3ImageViewerComponent;
 
   file:string;
+  images: Image[];
+  public previous:number;
+  public next:number;
 
-  constructor(private route: ActivatedRoute,private imageService: ImageService,private location: Location) { }
+
+  constructor(private router:Router, private route: ActivatedRoute,private imageService: ImageService,private location: Location, private searchParamService: SearchParamService  ) { 
+   
+  }
 
   ngOnInit() {
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+      return false;
+  };
     this.getImage();
+    this.getImages();
   }
 
   isVideo(): boolean{
@@ -43,6 +59,18 @@ export class ImageDetailComponent implements OnInit {
     else{
       return true;
     }
+  }
+
+  getImages():void{
+    this.imageService.getImages(this.searchParamService.searchParam)
+    .subscribe(images=> {
+      const id:number = +this.route.snapshot.paramMap.get('id');
+      this.images = images;
+      const index = this.images.findIndex(item => item.image_id === id);
+      this.previous = this.images[index-1].image_id;
+      this.next = this.images[index+1].image_id;
+      this.isLoadingList=false;
+    });
   }
 
   getImage(): void {
@@ -72,9 +100,7 @@ export class ImageDetailComponent implements OnInit {
           //get video stream from file server
             this.isLoading = false;
           }
-        });
-
-
+        })
   }
 
   goBack(): void {

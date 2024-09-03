@@ -51,7 +51,7 @@ export class AreaChartComponent implements OnInit, OnChanges {
         this.addGraphicsElement();
 
         this.createXAxis();
-
+ 
         this.createYAxis();
 
         // d3 area and histogram functions  has to be declared after x and y functions are defined

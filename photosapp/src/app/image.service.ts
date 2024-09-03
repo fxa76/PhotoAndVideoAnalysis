@@ -14,8 +14,8 @@ import { Stock } from './stock';
 @Injectable({
   providedIn: 'root'
 })
-export class ImageService extends GenericService {
 
+export class ImageService extends GenericService {
   constructor(protected http: HttpClient, protected messageService: MessageService) {
     super(http, messageService);
   }
@@ -54,7 +54,6 @@ export class ImageService extends GenericService {
     };
     //return this.http.post<Image[]>('https://localhost/python/process_search_form',searchParam, httpOptions)
     return this.http.post<Stock[]>('https://localhost/capi2/v2/imagestimebar',httpOptions)
-    //return of(IMAGES);
   }
 
   getImagesWithFaces(searchParam): Observable<Image[]> {

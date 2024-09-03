@@ -1,2 +1,5 @@
 /*test*/
- 
+.area {
+    fill: steel-blue;
+    clip-path: url(#clip);
+}

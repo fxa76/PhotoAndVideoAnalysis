@@ -9,6 +9,11 @@
     <fa-icon [icon]="faObjectGroup"></fa-icon>
   </a>
   <div class="row">
+    <div class="column_5">
+      <a *ngIf="!isLoadingList" mat-button routerLink="/detail/{{previous}}" routerLinkActive="active">
+        <fa-icon [icon]="faArrowCircleLeft"></fa-icon>
+      </a>
+    </div>
     <div class="column_80">
       <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
         <mat-progress-bar color="primary" mode="indeterminate">
@@ -25,7 +30,12 @@
         </div>
       </div>
     </div>
-    <div class="column_20">
+    <div mat-button class="column_5">
+      <a *ngIf="!isLoadingList" routerLink="/detail/{{next}}">
+        <fa-icon [icon]="faArrowCircleRight"></fa-icon>
+      </a>
+    </div>
+    <div class="column_10">
       <div><img style="max-height:60vh" src='{{image.thumbnail}}' alt='thumbnail' /></div>
       <div>id: {{image.image_id}}</div>
       <div>File name : {{image.filefullname}}</div>
