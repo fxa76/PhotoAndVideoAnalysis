@@ -3,4 +3,5 @@ export class Poi {
   lat: number;
   lon: number;
   coord_from_exif: boolean;
+  timestamp: string;
 }

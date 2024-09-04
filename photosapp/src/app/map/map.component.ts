@@ -21,13 +21,15 @@ import Overlay from 'ol/Overlay.js';
 import Feature from 'ol/Feature.js';
 import VectorSource from 'ol/source/Vector.js';
 import {  Vector as VectorLayer} from 'ol/layer.js';
-import {  Icon, Style, Circle as CircleStyle, Fill, Stroke} from 'ol/style.js';
+import {  Icon, Style, Circle as CircleStyle, RegularShape as RegularShape, Fill, Stroke} from 'ol/style.js';
 import Point from 'ol/geom/Point.js';
 import Projection from 'ol/proj/Projection.js';
 import GeoJSON from 'ol/format/GeoJSON.js';
 import Select from 'ol/interaction/Select.js';
 import Extent from 'ol/extent'
 
+
+import * as d3 from 'd3';
 
 
 @Component({
@@ -49,6 +51,9 @@ export class MapComponent implements OnInit {
   poi:Poi[];
   topRight:number[];
   bottomLeft:number[];
+  myColor:any;
+  
+ styles: {[year:number]:{style:any}}={};
 
   constructor(private mapService: MapService ,  private searchParamService: SearchParamService ) {
   }
@@ -56,19 +61,52 @@ export class MapComponent implements OnInit {
   ngOnInit() {
       this.topRight = [180,90];
       this.bottomLeft = [-180,-90];
+
+      //Create colors by years
+      this.myColor = d3.scaleLinear().domain([2020,2025]).range(["orange", "blue"])
+      console.log("Color test : "+this.myColor(5))
+      var years = [2001,2004,2047, 2021, 2023,2014,2011,2012,
+        2005,
+        2008,
+        2009,
+        2020,
+        2024,
+        2019,
+        2018,
+        2013,
+        2017,
+        2022,
+        2015,
+        1970,
+        2016,
+        2010];
+      for (var year of years){
+        this.styles[year] = {'style':new Style({
+          image: new CircleStyle({
+            radius: 5,
+            fill: new Fill({
+              color: this.myColor(year)//'orange'
+            })
+          })
+        })
+        }
+      }
+      //Create styles for each year
       this.iconStyleCoordFromExif= new Style({
         image: new CircleStyle({
           radius: 5,
           fill: new Fill({
-            color: 'orange'
+            color: this.myColor(5)//'orange'
           })
         })
       });
+
       this.iconStyleCoordUserDefined = new Style({
-        image: new CircleStyle({
+        image: new RegularShape({
           radius: 5,
+          points:4,
           fill: new Fill({
-            color: 'red'
+            color: this.myColor(9)//'red'
           })
         })
       });
@@ -124,7 +162,7 @@ export class MapComponent implements OnInit {
         var features = [];
         var feats = [];
         this.poi.forEach(function(d) {
-          //console.log(d.image_id + " " + typeof(d.lon) + " " + d.lat +  " " + d.coord_from_exif + " d "+d)
+          //console.log(d.image_id + " " + typeof(d.lon) + " " + d.lat +  " " + d.coord_from_exif + " d "+d.coord_from_exif + " timestamp year" + new Date(d.timestamp).getFullYear())
 
           if (d.lon == 'None'){d.lon = 0.0}
           if (d.lat == 'None'){d.lat = 0.0}
@@ -137,7 +175,8 @@ export class MapComponent implements OnInit {
 
           //console.log("exif:"+d.coord_from_exif)
           if(d.coord_from_exif=='True' || d.coord_from_exif){
-            iconFeature.setStyle(this.iconStyleCoordFromExif);
+            //iconFeature.setStyle(this.iconStyleCoordFromExif);
+            iconFeature.setStyle(this.styles[new Date(d.timestamp).getFullYear()].style );
           }else{
             iconFeature.setStyle(this.iconStyleCoordUserDefined);
             console.log("this is a userdefined Coord")

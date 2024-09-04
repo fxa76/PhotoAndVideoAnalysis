@@ -55,7 +55,7 @@ export class MapRoute extends BaseRoute {
 
     console.log(fromPart);
 
-    this.pg.query('SELECT image_id, lat,lon,coord_from_exif '+ fromPart, (err, result) => {
+    this.pg.query('SELECT image_id, lat,lon,coord_from_exif,timestamp '+ fromPart, (err, result) => {
       if (err) {
         throw err
       }
