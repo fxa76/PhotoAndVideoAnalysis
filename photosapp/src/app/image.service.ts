@@ -33,6 +33,18 @@ export class ImageService extends GenericService {
     //return of(IMAGES);
   }
 
+  getImagesYears(): Observable<number[]>{
+    this.log('fetching images timeline');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    //return this.http.post<Image[]>('https://localhost/python/process_search_form',searchParam, httpOptions)
+    return this.http.post<number[]>('https://localhost/capi2/v2/imagesyears',httpOptions)
+    //return of(IMAGES);
+  }
+
   getImagesTimeline(): Observable<Stock[]>{
     this.log('fetching images timeline');
     const httpOptions = {

@@ -29,6 +29,9 @@ export class ImageRoute extends BaseRoute {
     router.post("/v2/imagestimeline", (req: Request, res: Response, next: NextFunction) => {
        imageRoutes.getImagesTimeline(req, res, next);
     });
+    router.post("/v2/imagesyears", (req: Request, res: Response, next: NextFunction) => {
+      imageRoutes.getImagesYears(req, res, next);
+    });
     router.post("/v2/imagestimebar", (req: Request, res: Response, next: NextFunction) => {
        imageRoutes.getImagesTimeBar(req, res, next);
     });
@@ -85,6 +88,20 @@ export class ImageRoute extends BaseRoute {
               where timestamp is not null
               group by date
               order by date asc`;
+
+    this.pg.query(sql, (err, result) => {
+      if (err) {
+        throw err
+      }
+      res.status(200).json(result.rows)
+    })
+
+  }
+
+  public getImagesYears(req: Request, res: Response, next: NextFunction) {
+    console.log(req.query);
+
+    var sql = `SELECT distinct date_part('years', timestamp) as years from images order by years asc`;
 
     this.pg.query(sql, (err, result) => {
       if (err) {

@@ -30,6 +30,7 @@ import Extent from 'ol/extent'
 
 
 import * as d3 from 'd3';
+import { ImageService } from '../image.service';
 
 
 @Component({
@@ -55,7 +56,7 @@ export class MapComponent implements OnInit {
   
  styles: {[year:number]:{style:any}}={};
 
-  constructor(private mapService: MapService ,  private searchParamService: SearchParamService ) {
+  constructor(private mapService: MapService ,  private searchParamService: SearchParamService, private imageService:ImageService ) {
   }
 
   ngOnInit() {
@@ -65,7 +66,7 @@ export class MapComponent implements OnInit {
       //Create colors by years
       this.myColor = d3.scaleLinear().domain([2016,2024]).range(["orange", "blue"])
       console.log("Color test : "+this.myColor(5))
-      var years = [
+      /*var years = [
         2018,
         2001,
         2004,
@@ -87,18 +88,22 @@ export class MapComponent implements OnInit {
         2022,
         2023,
         2024,
-        1970];
-      for (var year of years){
-        this.styles[year] = {'style':new Style({
-          image: new CircleStyle({
-            radius: 5,
-            fill: new Fill({
-              color: this.myColor(year)//'orange'
+        1970];*/
+
+      this.imageService.getImagesYears()
+      .subscribe(years => {
+        for (var year of years){
+          this.styles[year.years] = {'style':new Style({
+            image: new CircleStyle({
+              radius: 5,
+              fill: new Fill({
+                color: this.myColor(year.years)//'orange'
+              })
             })
           })
-        })
+          }
         }
-      }
+      });
       //Create styles for each year
       this.iconStyleCoordFromExif= new Style({
         image: new CircleStyle({

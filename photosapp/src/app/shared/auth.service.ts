@@ -47,7 +47,7 @@ export class AuthService {
   }
 
   get isLoggedIn(): boolean {
-    console.log("getting user info")
+    //console.log("getting user info")
     let authToken = localStorage.getItem('access_token');
     this.user_id = localStorage.getItem('user_id');
 
