@@ -63,23 +63,31 @@ export class MapComponent implements OnInit {
       this.bottomLeft = [-180,-90];
 
       //Create colors by years
-      this.myColor = d3.scaleLinear().domain([2020,2025]).range(["orange", "blue"])
+      this.myColor = d3.scaleLinear().domain([2016,2024]).range(["orange", "blue"])
       console.log("Color test : "+this.myColor(5))
-      var years = [2001,2004,2047, 2021, 2023,2014,2011,2012,
+      var years = [
+        2018,
+        2001,
+        2004,
         2005,
         2008,
         2009,
-        2020,
-        2024,
-        2019,
-        2018,
+        2010,
+        2011,
+        2012,
         2013,
-        2017,
-        2022,
+        2014,
         2015,
-        1970,
         2016,
-        2010];
+        2017,
+       
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        1970];
       for (var year of years){
         this.styles[year] = {'style':new Style({
           image: new CircleStyle({
