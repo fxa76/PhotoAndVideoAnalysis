@@ -84,6 +84,12 @@
         <mat-label>Image comments</mat-label>
         <input matInput type="text" [(ngModel)]="searchParamService.searchParam.comments" placeholder={{searchParamService.searchParam.comments}} />
       </mat-form-field>
+      <BR/>
+      <mat-slide-toggle color="primary"
+          [checked]="liked"
+          (change)="toggleLikedData($event)">
+          only favorite pictures
+      </mat-slide-toggle>
     </div>
   </div>
 </div>

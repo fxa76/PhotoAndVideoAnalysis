@@ -28,6 +28,7 @@ export class SearchParamComponent implements OnInit {
   dateIsNull = false;
   gpsIsNull = false;
   useCoords = false;
+  liked = false;
 
   public descriptions : Description[]=[];
   public descriptionsToBeIncluded : Description[]=[];
@@ -50,6 +51,7 @@ export class SearchParamComponent implements OnInit {
     this.dateIsNull=  this.searchParamService.searchParam.dateIsNull;
     this.gpsIsNull=  this.searchParamService.searchParam.gpsIsNull;
     this.useCoords=  this.searchParamService.searchParam.use_coords;
+    this.liked=  this.searchParamService.searchParam.liked;
 
     this.descriptionsToBeIncluded = this.searchParamService.searchParam.descriptions;
     this.camerasToBeIncluded = this.searchParamService.searchParam.cameramodels;
@@ -128,6 +130,10 @@ export class SearchParamComponent implements OnInit {
 
   toggleUseCoordsData(event){
     this.searchParamService.searchParam.use_coords = event.checked;
+  }
+
+  toggleLikedData(event){
+    this.searchParamService.searchParam.liked = event.checked;
   }
 
   getEpochDate(dateString,hoursFix):number {

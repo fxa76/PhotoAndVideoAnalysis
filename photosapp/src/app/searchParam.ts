@@ -20,4 +20,5 @@ export class SearchParam {
   comments: string = "";
   iteration: string;
   id: string;
+  liked:boolean;
 }

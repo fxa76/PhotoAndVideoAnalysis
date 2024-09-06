@@ -34,6 +34,7 @@ export class SearchParamService extends GenericService {
     this.searchParam.dateIsNull = false;
     this.searchParam.gpsIsNull = false;
     this.searchParam.comments="";
+    this.searchParam.liked = false;
 
     this.searchParam.descriptions = [];
     this.searchParam.cameramodels = [];

@@ -44,6 +44,7 @@ export class BaseRoute {
     var sources = param.sources;
 
     var comments = param.comments;
+    var liked = param.liked;
 
 
     //only use the join with objects if looking for objects
@@ -71,6 +72,9 @@ export class BaseRoute {
         sql = sql + " and comments ~ '"+comments+"'"
       }
  
+      if (liked){
+        sql = sql + " and favorite = true "
+      }
       //define date interval
       console.log("date interval")
       if(from_date!= null && to_date != null && date_is_null == false){
