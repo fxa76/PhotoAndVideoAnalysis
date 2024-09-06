@@ -32,7 +32,7 @@ const routes: Routes = [
   { path: 'albums', component: AlbumsComponent, canActivate: [AuthGuard] },
   { path: 'album_create', component: AlbumDetailComponent, canActivate: [AuthGuard] },
   { path: 'album_detail/:id', component: AlbumDetailComponent, canActivate: [AuthGuard] },
-  { path: 'images', component: ImagesComponent, canActivate: [AuthGuard] },
+  { path: 'images/:today', component: ImagesComponent, canActivate: [AuthGuard] },
   { path: 'detail/:id', component: ImageDetailComponent, canActivate: [AuthGuard] },
   { path: 'overlay/:id', component: ImageOverlayComponent, canActivate: [AuthGuard] },
   { path: 'facesdistinct', component: FacesComponent, canActivate: [AuthGuard] },

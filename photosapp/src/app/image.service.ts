@@ -29,7 +29,19 @@ export class ImageService extends GenericService {
     };
     console.log(searchParam);
     //return this.http.post<Image[]>('https://localhost/python/process_search_form',searchParam, httpOptions)
-    return this.http.post<Image[]>('https://localhost/capi2/v2/images', searchParam, httpOptions)
+    return this.http.post<Image[]>('https://localhost/capi2/v2/images', searchParam, httpOptions)    
+    //return of(IMAGES);
+  }
+
+  getTodaysImages(searchParam): Observable<Image[]> {
+    this.log('fetching images');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    console.log(searchParam);
+    return this.http.post<Image[]>('https://localhost/capi2/v2/gettodaysimages', searchParam, httpOptions)
     //return of(IMAGES);
   }
 

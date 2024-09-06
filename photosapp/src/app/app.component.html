@@ -2,8 +2,9 @@
   <mat-toolbar>
     <nav>
       <div *ngIf="isLoggedIn()">
+        <a routerLink="/images/{{true}}" mat-raised-button matTooltip="Images"><fa-icon [icon]="faCalendar"></fa-icon></a>
         <a routerLink="/albums" mat-raised-button  matTooltip="Albums"><fa-icon [icon]="faBook"></fa-icon></a>
-        <a routerLink="/images" mat-raised-button matTooltip="Images"><fa-icon [icon]="faImages"></fa-icon></a>
+        <a routerLink="/images/{{false}}" mat-raised-button matTooltip="Images"><fa-icon [icon]="faImages"></fa-icon></a>
         <a routerLink="/faces" mat-raised-button matTooltip="Faces"><fa-icon [icon]="faSmile"></fa-icon></a>
         <a routerLink="/facesdistinct" mat-raised-button matTooltip="Distinct Faces"><fa-icon [icon]="faSmile" ></fa-icon>ID</a>
         <a routerLink="/map" mat-raised-button matTooltip="Map"><fa-icon [icon]="faGlobe"></fa-icon></a>

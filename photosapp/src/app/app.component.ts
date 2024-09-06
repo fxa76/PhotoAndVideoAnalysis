@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { faImages, faBook, faSmile, faGlobe, faSearch, faVectorSquare } from '@fortawesome/free-solid-svg-icons';
-import { faSquare, faCheckSquare, faUpload,faUser, faSignOutAlt,faSignInAlt, faUserPlus, faChartBar } from '@fortawesome/free-solid-svg-icons';
+import { faSquare, faCheckSquare, faUpload,faUser, faSignOutAlt,faSignInAlt, faUserPlus, faChartBar, faCalendar } from '@fortawesome/free-solid-svg-icons';
 
 import { AuthService } from './shared/auth.service';
 import { User } from './shared/user';
@@ -29,6 +29,7 @@ export class AppComponent {
   faSignInAlt = faSignInAlt;
   faUserPlus =  faUserPlus;
   faChartBar = faChartBar;
+  faCalendar = faCalendar;
 
   currentUser: User;
   isLoading : boolean = true;

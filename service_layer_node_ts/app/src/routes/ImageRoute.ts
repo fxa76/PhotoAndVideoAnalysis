@@ -44,6 +44,9 @@ export class ImageRoute extends BaseRoute {
     router.get("/v2/duplicates", (req: Request, res: Response, next: NextFunction) => {
        imageRoutes.getDuplicates(req, res, next);
     });
+    router.post("/v2/gettodaysimages", (req: Request, res: Response, next: NextFunction) => {
+      imageRoutes.getTodaysImage(req, res, next); 
+   });
   }
 
   /**
@@ -188,6 +191,22 @@ export class ImageRoute extends BaseRoute {
       //var img =result.rows[0];
       //img.img_base64= "data:image/jpg;base64,"+fs.readFileSync(img.filefullname,'base64');
       res.status(200).json(result.rows[0])
+    })
+
+  }
+
+  
+  public getTodaysImage(req: Request, res: Response, next: NextFunction) {
+    console.log(req.query);
+    let id = req.params.id;
+    var sql = "SELECT * FROM images WHERE CAST(images.timestamp AS VARCHAR) LIKE concat('%-',LPAD(date_part('months', NOW())::char,2,'0'),'-',LPAD(date_part('days', NOW())::char,2,'0'),'%') order by timestamp desc;"
+    this.pg.query(sql, (err, result) => {
+      if (err) {
+        throw err
+      }
+      //var img =result.rows[0];
+      //img.img_base64= "data:image/jpg;base64,"+fs.readFileSync(img.filefullname,'base64');
+      res.status(200).json(result.rows)
     })
 
   }

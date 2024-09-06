@@ -1,6 +1,7 @@
 import { Component, OnInit,AfterViewInit, ElementRef, ViewChild, Input } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {FormControl} from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { faFastForward,faFastBackward,faGlobe,faCheckDouble } from '@fortawesome/free-solid-svg-icons';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
@@ -39,15 +40,25 @@ export class ImagesComponent implements OnInit,AfterViewInit  {
   @Input() useGPS = false;
 
 
-  constructor( private imageService: ImageService, private searchParamService: SearchParamService ) { }
+  constructor(private router:Router,private route: ActivatedRoute, private imageService: ImageService, private searchParamService: SearchParamService ) { }
 
   ngOnInit() {
-    console.log(this.searchParamService.searchParam.use_coords)
-    if(this.searchParamService.searchParam.use_coords){
-      console.log("checking the check box");
-      this.useGPS  = true;
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+      return false;
+    };
+    const today = this.route.snapshot.paramMap.get('today');
+    if (today=='true'){
+      this.useGPS  = false;
+      this.getTodaysImages();
     }
-    this.getImages();
+    else{
+      console.log(this.searchParamService.searchParam.use_coords)
+      if(this.searchParamService.searchParam.use_coords){
+        console.log("checking the check box");
+        this.useGPS  = true;
+      }
+      this.getImages();
+    }
 
   }
 
@@ -90,6 +101,15 @@ export class ImagesComponent implements OnInit,AfterViewInit  {
       this.isLoading = false;
     });
   }
+
+  getTodaysImages(): void {
+    this.isLoading = true;
+  this.imageService.getTodaysImages(this.searchParamService.searchParam)
+    .subscribe(images=> {
+      this.images = images;
+    this.isLoading = false;
+  });
+}
 
 
   getPrevious():void{
