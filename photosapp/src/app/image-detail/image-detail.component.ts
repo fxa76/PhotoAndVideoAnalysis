@@ -6,7 +6,7 @@ import {MatTableModule} from '@angular/material/table';
 
 import { ViewChild } from '@angular/core';
 
-import { faArrowCircleLeft,faArrowCircleRight,faSave,faObjectGroup,faDownload } from '@fortawesome/free-solid-svg-icons';
+import { faArrowCircleLeft,faArrowCircleRight,faSave,faObjectGroup,faDownload,faHeart } from '@fortawesome/free-solid-svg-icons';
 
 import { Image } from '../image';
 import { ImageService } from '../image.service';
@@ -26,6 +26,7 @@ export class ImageDetailComponent implements OnInit {
   faSave=faSave;
   faObjectGroup=faObjectGroup;
   faDownload=faDownload;
+  faHeart=faHeart;
 
   isLoading:boolean = true;
   isLoadingList:boolean = true;
@@ -118,6 +119,12 @@ export class ImageDetailComponent implements OnInit {
     this.image.timestamp = d.toISOString();
     this.image.creationdate = (d.getTime())/1000;
 
+    this.imageService.updateImage(this.image)
+      .subscribe(() => this);
+  }
+
+  favorite():void{
+    this.image.favorite=!this.image.favorite
     this.imageService.updateImage(this.image)
       .subscribe(() => this);
   }

@@ -29,6 +29,7 @@ class FXImage(object):
         self.width = 0
         self.height = 0
         self.depth = 0
+        self.favorite = False;
 
     def get_date_str(self):
         date = "undefined"

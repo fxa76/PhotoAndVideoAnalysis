@@ -76,12 +76,12 @@ def updateImage():
     print("trying to update IMAGE data comments is : {}".format(json_received['comments']), file=sys.stderr)
     print("trying to update IMAGE data timestamp is : {}".format(json_received['timestamp']), file=sys.stderr)
     try:
-        sql = "UPDATE Images set comments=%s, lat=%s,lon=%s, timestamp=%s, creationdate=%s where image_id=%s"
+        sql = "UPDATE Images set comments=%s, lat=%s,lon=%s, timestamp=%s, creationdate=%s, favorite=%s where image_id=%s"
         print("sql : {}".format(sql),file=sys.stderr)
         conn = postgreSQL_pool.getconn()
         conn.autocommit = True
         cur = conn.cursor()
-        cur.execute(sql,(json_received['comments'],json_received['lat'],json_received['lon'],json_received['timestamp'],json_received['creationdate'],json_received['image_id'],))
+        cur.execute(sql,(json_received['comments'],json_received['lat'],json_received['lon'],json_received['timestamp'],json_received['creationdate'],json_received['favorite'],json_received['image_id'],))
     except(Exception) as error:
         print("error while updating image",file=sys.stderr)
     finally:

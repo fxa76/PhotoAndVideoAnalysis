@@ -49,10 +49,11 @@
               <div class="imageCard" *ngFor="let image of images" cdkDrag>
                 <div class="thumbnail">
                   <mat-checkbox *ngIf="multipleSelectionEnabled" (change)="selectImageValue($event.checked,image.image_id)"></mat-checkbox>
+                  <fa-icon *ngIf="image.favorite" [icon]="faHeart" style="color:red"></fa-icon>
                   <a routerLink="/detail/{{image.image_id}}">
                     <img src='{{image.thumbnail}}' matTooltip="{{getToolTip(image)}}" matTooltipClass="test" alt='thumbnail' />
                   </a>
-
+                  
                 </div>
               </div>
             </div>

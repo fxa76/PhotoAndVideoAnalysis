@@ -11,6 +11,14 @@
   <a mat-button routerLink="/overlay/{{image.image_id}}" color="primary" matTooltip="View detected objects">
     <fa-icon [icon]="faObjectGroup"></fa-icon>
   </a>
+
+    <button *ngIf="image.favorite" mat-button (click)="favorite()"  matTooltip="Remove favorite">
+      <fa-icon [icon]="faHeart" style="color:red"></fa-icon>
+    </button>
+
+    <button *ngIf="!image.favorite" mat-button (click)="favorite()" matTooltip="Add favorite">
+      <fa-icon [icon]="faHeart" style="color:grey"></fa-icon>
+    </button>
   <div class="row">
     <div class="column_5">
       <a *ngIf="!isLoadingList" mat-button routerLink="/detail/{{previous}}" routerLinkActive="active">

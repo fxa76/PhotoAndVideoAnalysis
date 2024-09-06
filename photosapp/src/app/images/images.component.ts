@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {FormControl} from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { faFastForward,faFastBackward,faGlobe,faCheckDouble } from '@fortawesome/free-solid-svg-icons';
+import { faFastForward,faFastBackward,faGlobe,faCheckDouble,faHeart } from '@fortawesome/free-solid-svg-icons';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 import { Image } from '../image';
@@ -25,6 +25,7 @@ export class ImagesComponent implements OnInit,AfterViewInit  {
   faFastBackward=faFastBackward;
   faGlobe=faGlobe;
   faCheckDouble=faCheckDouble;
+  faHeart=faHeart;
 
   images : Image[];
   selectedImage :Image;
