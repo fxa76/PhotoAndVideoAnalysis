@@ -49,7 +49,7 @@ export class BaseRoute {
     //only use the join with objects if looking for objects
     var sql = "";
     if( descriptions !=null && descriptions.length > 0 ){
-      sql = " from ( SELECT img.image_id, img.source, img.filefullname, img.filename, img.filepath, img.fileextensions, img.filesize, img.creationdate,img.lat, img.lon,img.to_be_deleted, img.model,img.coord_from_exif, img.thumbnail, img.timestamp "
+      sql = " from ( SELECT img.image_id, img.source, img.filefullname, img.filename, img.filepath, img.fileextensions, img.filesize, img.creationdate,img.lat,img.favorite, img.lon,img.to_be_deleted, img.model,img.coord_from_exif, img.thumbnail, img.timestamp "
 
 
       console.log("object descriptions")

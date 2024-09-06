@@ -6,6 +6,7 @@ export class Image {
   image_base64_overlay: string;
   filefullname: string;
   fileextensions: string;
+  favorite: boolean;
   lat: number;
   lon: number;
   creationdate: number;

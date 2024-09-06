@@ -183,7 +183,7 @@ export class ImageRoute extends BaseRoute {
   public getImage(req: Request, res: Response, next: NextFunction) {
     console.log(req.query);
     let id = req.params.id;
-    var sql = "SELECT image_id, filefullname, filename, filepath, fileextensions, filesize, creationdate, lat, lon, to_be_deleted, favorite, coord_from_exif, thumbnail, source, model, duplicate_of_image_id, othernames, comments, timestamp FROM public.images where image_id = "+id;
+    var sql = "SELECT * FROM public.images where image_id = "+id; //image_id, filefullname, filename, filepath, fileextensions, filesize, creationdate, lat, lon, to_be_deleted, favorite, coord_from_exif, thumbnail, source, model, duplicate_of_image_id, othernames, comments, timestamp 
     this.pg.query(sql, (err, result) => {
       if (err) {
         throw err

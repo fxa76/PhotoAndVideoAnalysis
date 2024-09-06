@@ -2,9 +2,11 @@ import { Component, OnInit,Input} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
+import {MatTableModule} from '@angular/material/table';
+
 import { ViewChild } from '@angular/core';
 
-import { faArrowCircleLeft,faArrowCircleRight,faSave,faObjectGroup } from '@fortawesome/free-solid-svg-icons';
+import { faArrowCircleLeft,faArrowCircleRight,faSave,faObjectGroup,faDownload } from '@fortawesome/free-solid-svg-icons';
 
 import { Image } from '../image';
 import { ImageService } from '../image.service';
@@ -23,6 +25,7 @@ export class ImageDetailComponent implements OnInit {
   faArrowCircleRight=faArrowCircleRight;
   faSave=faSave;
   faObjectGroup=faObjectGroup;
+  faDownload=faDownload;
 
   isLoading:boolean = true;
   isLoadingList:boolean = true;
