@@ -49,7 +49,8 @@ export class BaseRoute {
     //only use the join with objects if looking for objects
     var sql = "";
     if( descriptions !=null && descriptions.length > 0 ){
-      sql = " from ( SELECT img.image_id, img.source, img.filefullname, img.filename, img.filepath, img.fileextensions, img.filesize, img.creationdate,img.lat, img.lon,img.to_be_deleted, img.model,img.coord_from_exif, img.thumbnail "
+      sql = " from ( SELECT img.image_id, img.source, img.filefullname, img.filename, img.filepath, img.fileextensions, img.filesize, img.creationdate,img.lat, img.lon,img.to_be_deleted, img.model,img.coord_from_exif, img.thumbnail, img.timestamp "
+
 
       console.log("object descriptions")
       descriptions.forEach(function(desc:any){
@@ -69,7 +70,7 @@ export class BaseRoute {
       if (comments != null && comments.length>0){
         sql = sql + " and comments ~ '"+comments+"'"
       }
-
+ 
       //define date interval
       console.log("date interval")
       if(from_date!= null && to_date != null && date_is_null == false){
