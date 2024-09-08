@@ -88,7 +88,7 @@ export class SearchParamService extends GenericService {
       })
 };
     this.log(`fetching objects descriptions`);
-    return this.http.post<Description[]>('https://localhost/capi2/v2/searchObjects', searchParam, httpOptions);
+    return this.http.post<Description[]>('./capi2/v2/searchObjects', searchParam, httpOptions);
     //return this.http.post<Description[]>('https://localhost/python/descriptions',searchParam,httpOptions);
   }
 
@@ -103,7 +103,7 @@ export class SearchParamService extends GenericService {
     };
     this.log(`fetching camera models descriptions`);
     //return this.http.get<Camera[]>('https://localhost/python/list_camera_models');//,searchParam,httpOptions);
-    return this.http.post<Camera[]>('https://localhost/capi2/v2/searchModels', searchParam, httpOptions);
+    return this.http.post<Camera[]>('./capi2/v2/searchModels', searchParam, httpOptions);
 
   }
   
@@ -118,7 +118,7 @@ export class SearchParamService extends GenericService {
     };
     this.log(`fetching file formats descriptions`);
     //return this.http.get<Camera[]>('https://localhost/python/list_camera_models');//,searchParam,httpOptions);
-    return this.http.post<FileFormat[]>('https://localhost/capi2/v2/searchFileFormats', searchParam, httpOptions);
+    return this.http.post<FileFormat[]>('./capi2/v2/searchFileFormats', searchParam, httpOptions);
   }
 
   getSourcesDescriptions(searchParam): Observable<FileFormat[]> {
@@ -131,7 +131,7 @@ export class SearchParamService extends GenericService {
       })
     };
     this.log(`fetching sources descriptions`);
-    return this.http.post<Source[]>('https://localhost/capi2/v2/searchSources', searchParam, httpOptions);
+    return this.http.post<Source[]>('./capi2/v2/searchSources', searchParam, httpOptions);
   }
  
   getTotalCount(searchParam): Observable<number> {
@@ -144,7 +144,7 @@ export class SearchParamService extends GenericService {
       })
     };
     this.log(`fetching total count of images for filter`);
-    return this.http.post<number>('https://localhost/capi2/v2/searchCountTotal', searchParam, httpOptions);
+    return this.http.post<number>('./capi2/v2/searchCountTotal', searchParam, httpOptions);
   }
 
   getPossibleDescriptions(): Description[] {

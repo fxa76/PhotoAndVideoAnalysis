@@ -26,7 +26,7 @@ export class ObjectsInImagesService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.get<Object_in_image[]>('https://localhost/capi2/v2/list_objects_for_image_id/'+image_id);
+    return this.http.get<Object_in_image[]>('./capi2/v2/list_objects_for_image_id/'+image_id);
   }
 
   getFaces(searchParam): Observable<Object_in_image[]> {
@@ -37,7 +37,7 @@ export class ObjectsInImagesService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post<Object_in_image[]>('https://localhost/capi2/v2/list_faces', searchParam, httpOptions);
+    return this.http.post<Object_in_image[]>('./capi2/v2/list_faces', searchParam, httpOptions);
   }
 
   getFacesForIterationFaceId(searchParam): Observable<Object_in_image[]> {
@@ -48,7 +48,7 @@ export class ObjectsInImagesService {
   };
     this.messageService.add(`ObjectInImageService: fetching faces for iteration and face_id`);
     //todo add search params
-    return this.http.post<Object_in_image[]>('https://localhost/capi2/v2/list_distinct_face_iteration', searchParam, httpOptions);
+    return this.http.post<Object_in_image[]>('./capi2/v2/list_distinct_face_iteration', searchParam, httpOptions);
 
   }
 
@@ -60,7 +60,7 @@ export class ObjectsInImagesService {
       })
     };
 
-    return this.http.post<Object_in_image[]>('https://localhost/capi2/v2/list_distinct_faces', searchParam, httpOptions);
+    return this.http.post<Object_in_image[]>('./capi2/v2/list_distinct_faces', searchParam, httpOptions);
   }
 
   get_similar_face(id) : Observable<Object_in_image[]> {
@@ -71,12 +71,12 @@ export class ObjectsInImagesService {
       })
     };
 
-    return this.http.get<Object_in_image[]>('https://localhost/python/get_similiar_faces_to/'+id)
+    return this.http.get<Object_in_image[]>('./python/get_similiar_faces_to/'+id)
   }
 
   /** GET: update the hero on the server */
   hiddeFace(iteration, id): Observable<any> {
-    return this.http.get('https://localhost/capi2/v2/hideFaceIdForIterationId/' + iteration + '/' + id).pipe(
+    return this.http.get('./capi2/v2/hideFaceIdForIterationId/' + iteration + '/' + id).pipe(
       tap(_ => this.log(`hidding face`)),
       catchError(this.handleError<any>('updateImage'))
     );

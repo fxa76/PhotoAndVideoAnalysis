@@ -19,8 +19,8 @@ export class DuplicatesService {
         'Content-Type': 'application/json'
       })
     };
-    //return this.http.post<Image[]>('https://localhost/python/process_search_form',searchParam, httpOptions)
-    return this.http.get<Duplicate[]>('https://localhost/capi2/v2/duplicates', httpOptions)
+    //return this.http.post<Image[]>('./python/process_search_form',searchParam, httpOptions)
+    return this.http.get<Duplicate[]>('./capi2/v2/duplicates', httpOptions)
     //return of(IMAGES);
   }
 

@@ -28,7 +28,7 @@ export class AlbumService extends GenericService{
       'Content-Type':  'application/json'
     })};
     console.log(album);
-    return this.http.put<Album>('https://localhost/capi2/v2/albumadd',album, httpOptions).subscribe(res => {
+    return this.http.put<Album>('./capi2/v2/albumadd',album, httpOptions).subscribe(res => {
       console.log(res);
     }, error => {
       console.log('error')
@@ -38,7 +38,7 @@ export class AlbumService extends GenericService{
 
   getAlbumById(id:number):Observable<Album>{
       this.log(`fetching album id=${id}`);
-      return this.http.get<Album>('https://localhost/capi2/v2/album/' + id)
+      return this.http.get<Album>('./capi2/v2/album/' + id)
   }
 
   updateAlbum(album){
@@ -48,7 +48,7 @@ export class AlbumService extends GenericService{
         })
       };
       console.log("updating album" + album)
-      return this.http.put<Album>('https://localhost/capi2/v2/albumupdate', album, httpOptions).pipe(
+      return this.http.put<Album>('./capi2/v2/albumupdate', album, httpOptions).pipe(
             tap(_ => this.log(`updated album id=${album.album_id}`))
             //catchError(this.handleError<any>('updateImage'))
       ).subscribe(res => {
@@ -64,7 +64,7 @@ export class AlbumService extends GenericService{
       'Content-Type':  'application/json'
     })};
     console.log(searchParam);
-    return this.http.post<Album[]>('https://localhost/capi2/v2/albums',searchParam, httpOptions)
+    return this.http.post<Album[]>('./capi2/v2/albums',searchParam, httpOptions)
        //return of(IMAGES);
   }
 
@@ -77,7 +77,7 @@ export class AlbumService extends GenericService{
     var rel = {
       album_id: album.album_id
     }
-    return this.http.post<Image[]>('https://localhost/capi2/v2/imagesforalbum',rel, httpOptions)
+    return this.http.post<Image[]>('./capi2/v2/imagesforalbum',rel, httpOptions)
        //return of(IMAGES);
   }
 
@@ -91,7 +91,7 @@ export class AlbumService extends GenericService{
       album_id: album_id,
       image_id:image_id
     }
-    return this.http.put('https://localhost/capi2/v2/addImageAlbumRel',rel, httpOptions).pipe(
+    return this.http.put('./capi2/v2/addImageAlbumRel',rel, httpOptions).pipe(
       tap( _ => this.log(`updated album id=${album_id}`)),
       catchError(this.handleError<any>('updateImage'))
     );
@@ -106,7 +106,7 @@ export class AlbumService extends GenericService{
         album_id: album_id,
         image_id:image_id
       }
-      return this.http.put('https://localhost/capi2/v2/deleteImageAlbumRel',rel, httpOptions).pipe(
+      return this.http.put('./capi2/v2/deleteImageAlbumRel',rel, httpOptions).pipe(
         tap( _ => this.log(`removing image from album id=${album_id}`)),
         catchError(this.handleError<any>('updateImage'))
       );

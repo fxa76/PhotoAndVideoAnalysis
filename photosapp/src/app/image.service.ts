@@ -29,7 +29,7 @@ export class ImageService extends GenericService {
     };
     console.log(searchParam);
     //return this.http.post<Image[]>('https://localhost/python/process_search_form',searchParam, httpOptions)
-    return this.http.post<Image[]>('https://localhost/capi2/v2/images', searchParam, httpOptions)    
+    return this.http.post<Image[]>('./capi2/v2/images', searchParam, httpOptions)    
     //return of(IMAGES);
   }
 
@@ -41,7 +41,7 @@ export class ImageService extends GenericService {
       })
     };
     console.log(searchParam);
-    return this.http.post<Image[]>('https://localhost/capi2/v2/gettodaysimages', searchParam, httpOptions)
+    return this.http.post<Image[]>('./capi2/v2/gettodaysimages', searchParam, httpOptions)
     //return of(IMAGES);
   }
 
@@ -53,7 +53,7 @@ export class ImageService extends GenericService {
       })
     };
     //return this.http.post<Image[]>('https://localhost/python/process_search_form',searchParam, httpOptions)
-    return this.http.post<number[]>('https://localhost/capi2/v2/imagesyears',httpOptions)
+    return this.http.post<number[]>('./capi2/v2/imagesyears',httpOptions)
     //return of(IMAGES);
   }
 
@@ -65,7 +65,7 @@ export class ImageService extends GenericService {
       })
     };
     //return this.http.post<Image[]>('https://localhost/python/process_search_form',searchParam, httpOptions)
-    return this.http.post<Stock[]>('https://localhost/capi2/v2/imagestimeline',httpOptions)
+    return this.http.post<Stock[]>('./capi2/v2/imagestimeline',httpOptions)
     //return of(IMAGES);
   }
 
@@ -77,7 +77,7 @@ export class ImageService extends GenericService {
       })
     };
     //return this.http.post<Image[]>('https://localhost/python/process_search_form',searchParam, httpOptions)
-    return this.http.post<Stock[]>('https://localhost/capi2/v2/imagestimebar',httpOptions)
+    return this.http.post<Stock[]>('./capi2/v2/imagestimebar',httpOptions)
   }
 
   getImagesWithFaces(searchParam): Observable<Image[]> {
@@ -89,25 +89,25 @@ export class ImageService extends GenericService {
     };
     console.log(searchParam);
     //return this.http.post<Image[]>('https://localhost/python/process_search_form',searchParam, httpOptions)
-    return this.http.post<Image[]>('https://localhost/capi2/v2/getImagesWithFaces', searchParam, httpOptions)
+    return this.http.post<Image[]>('./capi2/v2/getImagesWithFaces', searchParam, httpOptions)
   }
 
   getImage(id: number): Observable<Image> {
     this.log(`fetching image data id=${id}`);
     //return this.http.get<Image>('https://localhost/python/get_image/'+id);
-    return this.http.get<Image>('https://localhost/capi2/v2/image/' + id)
+    return this.http.get<Image>('./capi2/v2/image/' + id)
   }
 
   /*File image is taken via the python open cv as it as a very good management of orientation.*/
   getImageFile(id: number): Observable<Image> {
     this.log(`fetching image file id=${id}`);
-    return this.http.get<Image>('https://localhost/python/get_image/' + id);
+    return this.http.get<Image>('./python/get_image/' + id);
   }
 
   getImageOverlay(id: number): Observable<Image> {
     this.log(`ImageService: fetched image id=${id}`);
-    return this.http.get<Image>('https://localhost/python/get_image_with_overlay/' + id);
-    //return this.http.get<Image>('https://localhost/python/get_image/' + id);
+    return this.http.get<Image>('./python/get_image_with_overlay/' + id);
+    //return this.http.get<Image>('./python/get_image/' + id);
   }
 
   updateImage(image: Image): Observable<any> {
@@ -116,7 +116,7 @@ export class ImageService extends GenericService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.put('https://localhost/python/update_image', image, httpOptions).pipe(
+    return this.http.put('./python/update_image', image, httpOptions).pipe(
       tap(_ => this.log(`updated image id=${image.image_id}`)),
       catchError(this.handleError<any>('updateImage'))
     );

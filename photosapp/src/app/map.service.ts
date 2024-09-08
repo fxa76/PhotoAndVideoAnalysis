@@ -26,7 +26,7 @@ export class MapService {
     console.log(searchParam);
     searchParam.use_coords = true;
     console.log(searchParam);
-    return this.http.post<Poi[]>('https://localhost/capi2/v2/map', searchParam, httpOptions)
+    return this.http.post<Poi[]>('./capi2/v2/map', searchParam, httpOptions)
     //return of(IMAGES);
   }
 
