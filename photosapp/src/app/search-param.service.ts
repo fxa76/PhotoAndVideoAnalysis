@@ -42,7 +42,7 @@ export class SearchParamService extends GenericService {
     this.searchParam.sources = [];
 
     this.searchParam.offset = 0;
-    this.searchParam.next = 100;
+    this.searchParam.next = 35;
 
     this.totalImagesCount =0;
 

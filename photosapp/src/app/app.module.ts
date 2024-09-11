@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -88,7 +88,7 @@ import { D3ImageAndObjectsViewerComponent } from './d3-image-and-objects-viewer/
     SignupComponent,
     SigninComponent,
     UserProfileComponent,
-
+    
     OrderStatusComponent,
     DonutChartComponent,
     OrderDeliveryComponent,
@@ -142,7 +142,8 @@ import { D3ImageAndObjectsViewerComponent } from './d3-image-and-objects-viewer/
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

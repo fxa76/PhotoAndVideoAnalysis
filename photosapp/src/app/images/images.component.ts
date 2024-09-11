@@ -2,6 +2,7 @@ import { Component, OnInit,AfterViewInit, ElementRef, ViewChild, Input } from '@
 import { BrowserModule } from '@angular/platform-browser';
 import {FormControl} from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 import { faFastForward,faFastBackward,faGlobe,faCheckDouble,faHeart } from '@fortawesome/free-solid-svg-icons';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
@@ -26,7 +27,9 @@ export class ImagesComponent implements OnInit,AfterViewInit  {
   faGlobe=faGlobe;
   faCheckDouble=faCheckDouble;
   faHeart=faHeart;
-
+  today:string='false';
+  
+  monthDay = new FormControl(new Date());
   images : Image[];
   selectedImage :Image;
   isLoading:boolean = true;
@@ -41,14 +44,14 @@ export class ImagesComponent implements OnInit,AfterViewInit  {
   @Input() useGPS = false;
 
 
-  constructor(private router:Router,private route: ActivatedRoute, private imageService: ImageService, private searchParamService: SearchParamService ) { }
+  constructor(private datePipe : DatePipe,private router:Router,private route: ActivatedRoute, private imageService: ImageService, private searchParamService: SearchParamService ) { }
 
   ngOnInit() {
     this.router.routeReuseStrategy.shouldReuseRoute = function() {
       return false;
     };
-    const today = this.route.snapshot.paramMap.get('today');
-    if (today=='true'){
+    this.today = this.route.snapshot.paramMap.get('today');
+    if (this.today=='true'){
       this.useGPS  = false;
       this.getTodaysImages();
     }
@@ -105,12 +108,19 @@ export class ImagesComponent implements OnInit,AfterViewInit  {
 
   getTodaysImages(): void {
     this.isLoading = true;
-  this.imageService.getTodaysImages(this.searchParamService.searchParam)
+    this.imageService.getMonthDayImages(this.searchParamService.searchParam)
     .subscribe(images=> {
       this.images = images;
     this.isLoading = false;
   });
-}
+  }
+  
+  
+  monthDayChanged(event:any):void{
+    //this.searchParamService.searchParam.targetDate = this.monthDay.value;
+    this.searchParamService.searchParam.targetDate = new Date(this.datePipe.transform(this.monthDay.value, 'yyyy-MM-dd'));
+    this.getTodaysImages()
+  }
 
 
   getPrevious():void{

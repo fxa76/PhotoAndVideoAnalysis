@@ -45,6 +45,20 @@ export class ImageService extends GenericService {
     //return of(IMAGES);
   }
 
+  //new Date(2100,11,12,0,0,0,0)
+  getMonthDayImages(searchParam): Observable<Image[]> {
+    this.log('fetching images');
+    searchParam.targetDate=new Date(searchParam.targetDate); //new Date("2024-08-27");
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    console.log(searchParam);
+    return this.http.post<Image[]>('./capi2/v2/getmonthdayimages', searchParam, httpOptions)
+    //return of(IMAGES);
+  }
+
   getImagesYears(): Observable<number[]>{
     this.log('fetching images timeline');
     const httpOptions = {

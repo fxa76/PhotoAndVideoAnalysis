@@ -10,6 +10,7 @@
 <button mat-button color="primary" (click)="enableMultipleSelection()">
   <fa-icon [icon]="faCheckDouble"></fa-icon>
 </button>
+
 <div>
   <mat-sidenav-container class="example-container" style="width: 100%;">
     <mat-sidenav #sidenav mode="side" [(opened)]="opened">
@@ -58,8 +59,13 @@
               </div>
             </div>
           </div>
-          <div class="column30">
-            <app-albums></app-albums>
+          <div class="column30">            
+            <app-albums *ngIf="today=='false'"></app-albums>
+            <mat-form-field *ngIf="today=='true'">
+              <input matInput [matDatepicker]="pickerMonthDay" placeholder="Day focused accross years" [formControl]="monthDay" (dateChange)="monthDayChanged($event)">
+              <mat-datepicker-toggle matSuffix [for]="pickerMonthDay"></mat-datepicker-toggle>
+              <mat-datepicker #pickerMonthDay></mat-datepicker>
+            </mat-form-field>
           </div>
         </div>
       </div>

@@ -39,7 +39,7 @@ export class FacesComponent implements OnInit {
       this.searchParamService.searchParam.offset=0
     }
     if(!this.searchParamService.searchParam.next){
-      this.searchParamService.searchParam.next = 100
+      this.searchParamService.searchParam.next = 35
     }
     this.getFaces()
   }

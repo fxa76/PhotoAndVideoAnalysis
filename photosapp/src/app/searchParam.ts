@@ -21,4 +21,5 @@ export class SearchParam {
   iteration: string;
   id: string;
   liked:boolean;
+  targetDate:Date= new Date();
 }
