@@ -65,7 +65,7 @@ export class MapComponent implements OnInit {
       this.bottomLeft = [-180,-90];
 
       //Create colors by years
-      this.myColor = d3.scaleLinear().domain([2016,2024]).range(["rgba(255,0,0,0.5)", "rgba(0,0,255,0.5)"])
+      this.myColor = d3.scaleLinear().domain([2015,2024]).range(["rgba(255,0,0,0.5)", "rgba(0,0,255,0.5)"])
       console.log("Color test : "+this.myColor(5))
 
       this.imageService.getImagesYears()
