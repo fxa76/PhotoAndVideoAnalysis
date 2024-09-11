@@ -9,9 +9,14 @@
             "type": "debugpy",
             "request": "launch",
             "program": "${file}",
-            "args":["--source", "C://_tmp/Perso","--target","C://_tmp/goprotest"],
+            "args": [
+                "--source",
+                "C://_tmp/Perso",
+                "--target",
+                "C://_tmp/goprotest"
+            ],
             "console": "integratedTerminal",
-            "cwd":"${fileDirname}"
+            "cwd": "${fileDirname}"
         }
     ]
 }
