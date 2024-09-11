@@ -1,4 +1,5 @@
 __pycache__
+.venv/
 .scannerwork/
 /service_layer_python/app/__pycache__
 /admin_tools/__pycache__
