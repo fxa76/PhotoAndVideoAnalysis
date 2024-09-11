@@ -5,6 +5,7 @@ import {SearchParam} from '../searchParam';
 
 import { MapService } from '../map.service';
 import { Poi } from '../poi';
+import { Year } from '../year';
 
 import OlMap from 'ol/Map';
 import OlXYZ from 'ol/source/XYZ';
@@ -54,7 +55,7 @@ export class MapComponent implements OnInit {
   bottomLeft:number[];
   myColor:any;
   
- styles: {[year:number]:{style:any}}={};
+ styles: {[year:string]:{style:any}}={};
 
   constructor(private mapService: MapService ,  private searchParamService: SearchParamService, private imageService:ImageService ) {
   }

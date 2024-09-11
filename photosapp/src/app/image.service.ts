@@ -10,6 +10,7 @@ import { Image } from './image';
 import { SearchParam } from './searchParam';
 import { IMAGES } from './mock-images';
 import { Stock } from './stock';
+import { Year } from './year';
 
 @Injectable({
   providedIn: 'root'
@@ -59,7 +60,7 @@ export class ImageService extends GenericService {
     //return of(IMAGES);
   }
 
-  getImagesYears(): Observable<number[]>{
+  getImagesYears(): Observable<Year[]>{
     this.log('fetching images timeline');
     const httpOptions = {
       headers: new HttpHeaders({
@@ -67,7 +68,7 @@ export class ImageService extends GenericService {
       })
     };
     //return this.http.post<Image[]>('https://localhost/python/process_search_form',searchParam, httpOptions)
-    return this.http.post<number[]>('./capi2/v2/imagesyears',httpOptions)
+    return this.http.post<Year[]>('./capi2/v2/imagesyears',httpOptions)
     //return of(IMAGES);
   }
 
