@@ -10,3 +10,4 @@ imageio
 pandas
 ExifRead
 ffmpeg-python
+geopy

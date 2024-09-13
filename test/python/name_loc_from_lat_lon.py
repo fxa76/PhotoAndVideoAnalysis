@@ -14,6 +14,7 @@ df = pd.read_csv(io.StringIO(s), sep='\s+')
 
 def city_state_country(row):
     coord = f"{row['Latitude']}, {row['Longitude']}"
+    print("{}".format(coord))
     location = geolocator.reverse(coord, exactly_one=True)
     address = location.raw['address']
     city = address.get('town', '')

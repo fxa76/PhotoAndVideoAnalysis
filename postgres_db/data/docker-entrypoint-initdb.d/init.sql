@@ -203,7 +203,9 @@ CREATE TABLE public.images (
     othernames character varying[],
     comments character varying,
     "timestamp" timestamp without time zone,
-    sha512 character varying(512) NOT NULL
+    sha512 character varying(512) NOT NULL,
+	address varchar NULL,
+	country varchar NULL,
 );
 
 
