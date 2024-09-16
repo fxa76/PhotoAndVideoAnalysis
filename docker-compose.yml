@@ -256,6 +256,27 @@ services:
       interval: 30s
       timeout: 10s
       retries: 10
+  
+  analysis_object_extraction_yolov10:
+    build:
+      context: ./analysis_object_yolov10    #build from the Dockerfile in current directory.
+    #restart: on-failure
+    ports:
+      - 6005:6000
+    volumes:
+     - ./analysis_object_yolov10/app:/app
+     - ${PICTURES_STORAGE_DIR}:/pictures
+    environment:
+     - RABBITMQ_SERVER=${RABBITMQ_SERVER}
+     - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
+     - RABBITMQ_PWD=${RABBITMQ_PWD}
+    depends_on:
+      - rabbitmq
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
 
   analysis_ocr:
     build:
