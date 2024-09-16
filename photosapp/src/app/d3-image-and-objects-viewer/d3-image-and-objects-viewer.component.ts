@@ -37,7 +37,7 @@ export class D3ImageAndObjectsViewerComponent implements OnInit {
 
   updateImage(image){
     var svg =  d3.select(this.hostElement).select("#imageZone")
-    var view_w = 1000
+    var view_w = 1200
     var view_h = 800
     var g = svg
       .attr("width", view_w)

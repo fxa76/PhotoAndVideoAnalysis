@@ -1,80 +1,116 @@
 <div *ngIf="image">
-  <button mat-button (click)="goBack()" color="primary" matTooltip="Go Back">
-    <fa-icon [icon]="faArrowCircleLeft"></fa-icon>
-  </button>
-  <button mat-button (click)="save()" color="primary" matTooltip="Save changes">
-    <fa-icon [icon]="faSave"></fa-icon>
-  </button>
-  <a mat-button href="/fs/v1/get_file/{{image.image_id}}" color="primary" matTooltip="Download Image">
-    <fa-icon [icon]="faDownload"></fa-icon>
-  </a>
-  <a mat-button routerLink="/overlay/{{image.image_id}}" color="primary" matTooltip="View detected objects">
-    <fa-icon [icon]="faObjectGroup"></fa-icon>
-  </a>
-
-    <button *ngIf="image.favorite" mat-button (click)="favorite()"  matTooltip="Remove favorite">
+  <div>
+    <button mat-button (click)="goBack()" color="primary" matTooltip="Go Back">
+      <fa-icon [icon]="faArrowCircleLeft"></fa-icon>
+    </button>
+    <button mat-button (click)="save()" color="primary" matTooltip="Save changes">
+      <fa-icon [icon]="faSave"></fa-icon>
+    </button>
+    <a mat-button href="/fs/v1/get_file/{{image.image_id}}" color="primary" matTooltip="Download Image">
+      <fa-icon [icon]="faDownload"></fa-icon>
+    </a>
+    <a mat-button routerLink="/overlay/{{image.image_id}}" color="primary" matTooltip="View detected objects">
+      <fa-icon [icon]="faObjectGroup"></fa-icon>
+    </a>
+    <button *ngIf="image.favorite" mat-button (click)="favorite()" matTooltip="Remove favorite">
       <fa-icon [icon]="faHeart" style="color:red"></fa-icon>
     </button>
-
     <button *ngIf="!image.favorite" mat-button (click)="favorite()" matTooltip="Add favorite">
       <fa-icon [icon]="faHeart" style="color:grey"></fa-icon>
     </button>
-  <div class="row">
-    <div class="column_5">
-      <a *ngIf="!isLoadingList" mat-button routerLink="/detail/{{previous}}" routerLinkActive="active">
-        <fa-icon [icon]="faArrowCircleLeft"></fa-icon>
-      </a>
-    </div>
-    <div class="column_80">
-      <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
-        <mat-progress-bar color="primary" mode="indeterminate">
-        </mat-progress-bar>
-      </mat-card>
-      <div *ngIf="!isLoading">
-        <div *ngIf="!isVideo()">
-          <app-d3-image-viewer #imageViewer [my_image]="image"></app-d3-image-viewer>
-        </div>
-        <div *ngIf="isVideo()">
-          <video id="video" style="max-height:400px" controls autoplay="autoplay">
-            <source src="/fs/v1/get_file/{{image.image_id}}">
-          </video>
-        </div>
-      </div>
-    </div>
-    <div mat-button class="column_5">
-      <a *ngIf="!isLoadingList" routerLink="/detail/{{next}}">
-        <fa-icon [icon]="faArrowCircleRight"></fa-icon>
-      </a>
-    </div>
-    <div class="column_10">
-      <div style="vertical-align:-webkit-baseline-middle">
-        <img style="max-height:60vh" src='{{image.thumbnail}}' alt='thumbnail' />        
-      </div>
-      <HR/>
-      <Table>
-        <tr><td>date</td><td><input type="date" [(ngModel)]="creationDate"></td></tr>
-        <tr><td>time</td><td><input type="time" [(ngModel)]="creationTime"></td></tr>
-        <tr><td>Lat</td><td><input [(ngModel)]="image.lat" placeholder="" /></td></tr>
-        <tr><td>Lon</td><td><input [(ngModel)]="image.lon" placeholder="" /></td></tr>
-        <tr><td>coord from exif</td><td>{{image.coord_from_exif}}</td></tr>
-        <tr><td>favorite</td><td>{{image.favorite}}</td></tr>
-        <tr><td>Camera Model</td><td>{{image.model}}</td></tr>
-        <tr><td>Source</td><td>{{image.source}}</td></tr>
-        <tr><td>id</td><td>{{image.image_id}}</td></tr>
-        <tr><td>File name</td><td>{{image.filefullname}}</td></tr>
-        <tr><td>File size </td><td>{{image.filesize}}</td></tr>
-        <tr><td>creation date</td><td>{{image.creationdate}}</td></tr>
-        <tr><td></td><td></td></tr>
-        <tr><td></td><td></td></tr>
-      </Table>
-      <div>Comments:</div>
-      <div>
-        <textarea [(ngModel)]="image.comments" placeholder="comments" rows="3" cols="40"></textarea>
-      </div>
-      <UL>
-        <label>Other names for this file: </label>
-        <li *ngFor="let item of image.othernames; let i = index">{{i}} -- {{item}}</li>
-      </UL>
-    </div>
   </div>
   
+    <mat-card *ngIf="isLoading" style="width:90%;display: flex; justify-content: center; align-items: center">
+      <mat-progress-bar color="primary" mode="indeterminate">
+      </mat-progress-bar>
+    </mat-card>
+    <div *ngIf="!isLoading">
+      <div class="row">
+        <a mat-button routerLink="/detail/{{previous}}" routerLinkActive="active">
+          <fa-icon [icon]="faArrowCircleLeft"></fa-icon>
+        </a>
+      
+      <div *ngIf="!isVideo()" style="display: inline;">
+        <app-d3-image-viewer #imageViewer [my_image]="image"></app-d3-image-viewer>
+      </div>
+      <div *ngIf="isVideo()" style="display: inline;">
+        <video id="video" style="max-height:400px" controls autoplay="autoplay">
+          <source src="/fs/v1/get_file/{{image.image_id}}">
+        </video>
+      </div>
+      
+        <a mat-button routerLink="/detail/{{next}}">
+          <fa-icon [icon]="faArrowCircleRight"></fa-icon>
+        </a>
+      <div style="display: inline;">
+        <div style="vertical-align:-webkit-baseline-middle;display:inline">
+          <img style="max-height:60vh" src='{{image.thumbnail}}' alt='thumbnail' />
+        </div>
+        <HR />
+        <Table>
+          <tr>
+            <td>date</td>
+            <td><input type="date" [(ngModel)]="creationDate"></td>
+          </tr>
+          <tr>
+            <td>time</td>
+            <td><input type="time" [(ngModel)]="creationTime"></td>
+          </tr>
+          <tr>
+            <td>Lat</td>
+            <td><input [(ngModel)]="image.lat" placeholder="" /></td>
+          </tr>
+          <tr>
+            <td>Lon</td>
+            <td><input [(ngModel)]="image.lon" placeholder="" /></td>
+          </tr>
+          <tr>
+            <td>coord from exif</td>
+            <td>{{image.coord_from_exif}}</td>
+          </tr>
+          <tr>
+            <td>favorite</td>
+            <td>{{image.favorite}}</td>
+          </tr>
+          <tr>
+            <td>Camera Model</td>
+            <td>{{image.model}}</td>
+          </tr>
+          <tr>
+            <td>Source</td>
+            <td>{{image.source}}</td>
+          </tr>
+          <tr>
+            <td>id</td>
+            <td>{{image.image_id}}</td>
+          </tr>
+          <tr>
+            <td>File name</td>
+            <td>{{image.filefullname}}</td>
+          </tr>
+          <tr>
+            <td>File size </td>
+            <td>{{image.filesize}}</td>
+          </tr>
+          <tr>
+            <td>creation date</td>
+            <td>{{image.creationdate}}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+          </tr>
+        </Table>
+        <div>Comments:</div>
+        <div>
+          <textarea [(ngModel)]="image.comments" placeholder="comments" rows="3" cols="40"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

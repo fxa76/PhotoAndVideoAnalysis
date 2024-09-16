@@ -33,4 +33,5 @@ nav a.active {
   width: 98vw;
   overflow: hidden;
   background-color: white;
+  align-items: center;
 }

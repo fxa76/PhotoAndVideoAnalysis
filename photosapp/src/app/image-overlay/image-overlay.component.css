@@ -1,20 +1,5 @@
-.center-fit {
-    max-width: 100%;
-    max-height: 100%;
-    margin: auto;
-}
 .row {
-  display: flex;
-}
-
-/* Create two equal columns that sits next to each other */
-.column_80 {
-  flex: 80vw;
-  padding: 10px;
-}
-.column_20 {
-  flex: 20vw;
-  padding: 10px;
+  display: block;
 }
 
 table {
