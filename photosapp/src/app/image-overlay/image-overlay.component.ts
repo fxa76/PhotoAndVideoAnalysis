@@ -23,6 +23,7 @@ export class ImageOverlayComponent implements OnInit {
   faArrowCircleLeft=faArrowCircleLeft;
   image: Image;
   objects : Object_in_image[]
+  columnsToDisplay = ['objects_id', 'description','analyzer_version','text_found','location'];
 
   @ViewChild('imageViewer', { static: true }) chart: D3ImageAndObjectsViewerComponent;
 

@@ -53,6 +53,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
@@ -125,6 +126,7 @@ import { D3ImageAndObjectsViewerComponent } from './d3-image-and-objects-viewer/
     MatSidenavModule,
     MatTableModule,
     MatSlideToggleModule,
+    MatListModule,
     //forms
     FormsModule,
     ReactiveFormsModule,

@@ -14,13 +14,17 @@ import logging.config
 
 logging.config.fileConfig('logging.conf')
 logger = logging.getLogger(__name__)
+queue_name = "extractObjectsYolov10" #"extractObjects"
 
 def push_all_images_without():
     #iterate thru images that have not yet been analyzed
     sql = """SELECT T1.filefullname, T1.fileextensions,T1.image_id FROM public.images T1
-                LEFT OUTER JOIN public.objects  T2
-                ON (T1.filefullname = T2.filefullname)
-                WHERE T2.filefullname IS NULL and  (fileextensions='.jpg' or fileextensions='.png' or fileextensions='.jpeg'  or fileextensions='.tiff')"""
+                WHERE (fileextensions='.jpg' or fileextensions='.png' or fileextensions='.jpeg'  or fileextensions='.tiff')"""
+    #iterate thru images that have not yet been analyzed
+    #sql = """SELECT T1.filefullname, T1.fileextensions,T1.image_id FROM public.images T1
+    #            LEFT OUTER JOIN public.objects  T2
+    #            ON (T1.filefullname = T2.filefullname)
+    #            WHERE T2.filefullname IS NULL and  (fileextensions='.jpg' or fileextensions='.png' or fileextensions='.jpeg'  or fileextensions='.tiff')"""
     #reprocess images that had nothin_found
     #sql = """SELECT T1.filefullname, T1.fileextensions,T1.image_id FROM public.images T1
     #             LEFT OUTER JOIN public.objects  T2
@@ -74,7 +78,7 @@ def push_image_by_id(image_id):
 
 def push_image(image_id,filefullname):
     obj = {"image_id": image_id, "filefullname": filefullname}
-    connection_queues.post_task(obj, "extractObjects");
+    connection_queues.post_task(obj, queue_name);
 
 def start():
     push_all_images_without()

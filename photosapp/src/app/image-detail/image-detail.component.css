@@ -5,6 +5,7 @@
 }
 .row {
   display: flex;
+  height: 700px;
 }
 
 /* Create two equal columns that sits next to each other */

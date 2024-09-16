@@ -42,3 +42,7 @@ postgres_db/schema_backup/backup_schema20201020.sql
 analysis_face_extraction_v2/app/data_networks/dlib_face_recognition_resnet_model_v1.dat
 analysis_face_extraction_v2/app/data_networks/shape_predictor_5_face_landmarks.dat
 
+test/python/46287.jfif
+test/python/test.jfif
+test/python/test2.jpg
+test/python/yolov10x.pt

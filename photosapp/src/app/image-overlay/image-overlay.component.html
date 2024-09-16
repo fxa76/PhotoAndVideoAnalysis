@@ -8,18 +8,34 @@
     <div class="column_80">
       <app-d3-image-and-objects-viewer #imageViewer [my_image]="image"></app-d3-image-and-objects-viewer>
     </div>
-    <div class="column_20">
-      <span>id: </span>{{image.image_id}}
-      <div style="display:flex">
-        <div style="display:flex,overflow:auto scroll">
-          <UL>
-            <div *ngFor="let obj of image.objs">
-              <LI style="display:block">{{obj.objects_id}} {{obj.description}} {{obj.analyzer_version}} ({{obj.x}},{{obj.y}},{{obj.w}},{{obj.h}}),{{obj.text_found}}</LI>
-            </div>
-          </UL>
-        </div>
-      </div>
+    <div class="column_20" style="height:90vh;display:block;overflow:auto">
+      <table mat-table [dataSource]="image.objs" class="mat-elevation-z8">
+        <ng-container matColumnDef="objects_id">
+          <th mat-header-cell *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let obj">{{obj.objects_id}}</td>
+        </ng-container>
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef> description </th>
+          <td mat-cell *matCellDef="let obj"> {{obj.description}} </td>
+        </ng-container>
+        <ng-container matColumnDef="analyzer_version">
+          <th mat-header-cell *matHeaderCellDef> analyzer version </th>
+          <td mat-cell *matCellDef="let obj">  {{obj.analyzer_version}} </td>
+        </ng-container>
+        <ng-container matColumnDef="location">
+          <th mat-header-cell *matHeaderCellDef> analyzer version </th>
+          <td mat-cell *matCellDef="let obj"> {{obj.x}},{{obj.y}},{{obj.w}},{{obj.h}}</td>
+        </ng-container>
+        
+        <ng-container matColumnDef="text_found">
+          <th mat-header-cell *matHeaderCellDef> text found </th>
+          <td mat-cell *matCellDef="let obj"> {{obj.text_found}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+      </table>
     </div>
   </div>
-  <label>comments:{{image.comments}}</label>
-</div>
+  
+    </div>
+    
