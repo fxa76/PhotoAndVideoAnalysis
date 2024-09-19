@@ -6,3 +6,7 @@ table {
   width: 100%;
   flex-grow: 1;
 }
+
+.make-red{
+  background-color: red;
+}

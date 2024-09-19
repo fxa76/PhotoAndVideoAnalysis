@@ -60,12 +60,22 @@ export class D3ImageAndObjectsViewerComponent implements OnInit {
       .attr("y",(d)=>{return d.y})
       .attr("width",(d)=>{return d.w})
       .attr("height",(d)=>{return d.h})
-      .attr("style","stroke:red; fill:white; opacity:0.1")
+      .attr("style",(d)=> {
+        if(d.over){
+          return "stroke:red; fill:red; opacity:0.9"//d3.select(this).attr("opacity", .9).style("fill", "red");
+        }
+        else{
+          return "stroke:red; fill:white; opacity:0.1"
+        }
+        
+        })
       .on("mouseover", function(d) {
             d3.select(this).attr("opacity", .9).style("fill", "red");
+            d.over=true;
             })
        .on("mouseout", function(d) {
             d3.select(this).attr("style","stroke:red; fill:white; opacity:0.1");
+            d.over=false;
             })
 
     //define zoom settings

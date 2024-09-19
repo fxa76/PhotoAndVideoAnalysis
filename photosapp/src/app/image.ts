@@ -14,4 +14,6 @@ export class Image {
   width:number;
   height:number;
   depth:number;
+  over:boolean;
+  objs:any[];
 }
