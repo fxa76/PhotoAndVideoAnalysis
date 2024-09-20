@@ -16,4 +16,5 @@ export class Image {
   depth:number;
   over:boolean;
   objs:any[];
+  location:{};
 }

@@ -65,6 +65,10 @@
             <td><input [(ngModel)]="image.lon" placeholder="" /></td>
           </tr>
           <tr>
+            <td>location</td>
+            <td>{{image.location.road}}<br/>{{image.location.city}}{{image.location.town}}{{image.location.village}}<br/>{{image.location.country}}</td>
+          </tr>
+          <tr>
             <td>coord from exif</td>
             <td>{{image.coord_from_exif}}</td>
           </tr>

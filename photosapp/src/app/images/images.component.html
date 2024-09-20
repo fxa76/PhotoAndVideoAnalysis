@@ -60,12 +60,13 @@
             </div>
           </div>
           <div class="column30">            
-            <app-albums *ngIf="today=='false'"></app-albums>
             <mat-form-field *ngIf="today=='true'">
               <input matInput [matDatepicker]="pickerMonthDay" placeholder="Day focused accross years" [formControl]="monthDay" (dateChange)="monthDayChanged($event)">
               <mat-datepicker-toggle matSuffix [for]="pickerMonthDay"></mat-datepicker-toggle>
               <mat-datepicker #pickerMonthDay></mat-datepicker>
             </mat-form-field>
+            
+            <app-albums></app-albums>
           </div>
         </div>
       </div>
