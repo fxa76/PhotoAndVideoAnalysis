@@ -11,17 +11,17 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^8.0.3",
-    "@angular/cdk": "^8.2.3",
-    "@angular/common": "^8.0.3",
-    "@angular/compiler": "^8.0.3",
-    "@angular/core": "^8.0.3",
-    "@angular/forms": "^8.0.3",
-    "@angular/material": "^8.2.3",
-    "@angular/platform-browser": "^8.0.3",
-    "@angular/platform-browser-dynamic": "^8.0.3",
-    "@angular/router": "^8.0.3",
-    "@fortawesome/angular-fontawesome": "^0.4.0",
+    "@angular/animations": "^9",
+    "@angular/cdk": "^9.2.4",
+    "@angular/common": "^9",
+    "@angular/compiler": "^9",
+    "@angular/core": "^9",
+    "@angular/forms": "^9",
+    "@angular/material": "^9.2.4",
+    "@angular/platform-browser": "^9",
+    "@angular/platform-browser-dynamic": "^9",
+    "@angular/router": "^9",
+    "@fortawesome/angular-fontawesome": "^0.6.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.26",
     "@fortawesome/free-solid-svg-icons": "^5.12.0",
     "core-js": "^3.6.4",
@@ -30,13 +30,13 @@
     "ol": "^5.3.3",
     "rxjs": "~6.5.4",
     "tslib": "^1.9.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.10.3"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.803.23",
-    "@angular/cli": "^8.3.23",
-    "@angular/compiler-cli": "^8.2.14",
-    "@angular/language-service": "^8.2.14",
+    "@angular-devkit/build-angular": "^0.901.15",
+    "@angular/cli": "^9.1.15",
+    "@angular/compiler-cli": "^9",
+    "@angular/language-service": "^9",
     "@types/d3-array": "1.2.1",
     "@types/d3-axis": "1.0.10",
     "@types/d3-brush": "1.0.8",
@@ -64,6 +64,6 @@
     "protractor": "^5.4.3",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.5.3"
+    "typescript": "~3.8"
   }
 }
