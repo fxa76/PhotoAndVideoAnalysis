@@ -177,6 +177,7 @@ services:
       context: ./photosapp # Location of our Dockerfile
     volumes: # Volume binding
       - ./photosapp/src:/app/src
+      #- ./photosapp:/app
     environment:
       - CHOKIDAR_USEPOLLING=1
       - CHOKIDAR_INTERVAL=1

@@ -6,7 +6,7 @@ describe('ChartControlsService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ChartControlsService = TestBed.get(ChartControlsService);
+    const service: ChartControlsService = TestBed.inject(ChartControlsService);
     expect(service).toBeTruthy();
   });
 });
