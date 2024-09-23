@@ -70,17 +70,18 @@ router.post("/signin", (req, res, next) => {
             return bcrypt.compare(req.body.password, user.password);
         }
     }).then(response => {
-        console.log(response);
+        //console.log(response);
         if (!response) {
             return res.status(401).json({
                 message: "Authentication failed"
             });
         }
-        if(getUser==undefined){
-            return res.status(401).json({
+        if(getUser===undefined){
+            /*return res.status(401).json({
                 message: "Authentication failed"
-            });
+            });*/
         }
+        else{
 
         let jwtToken = jwt.sign({
             email: getUser.email,
@@ -100,12 +101,13 @@ router.post("/signin", (req, res, next) => {
                 expiresIn: 3600,
                 _id: getUser._id
             });
-          }); 
+          });
+        }  
     }).catch(err => {
-        console.log(err)
-        return res.status(401).json({
+        //console.log(err)
+        /*return res.status(401).json({
             message: "Authentication failed"
-        });
+        });*/
     });
 });
 
