@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DuplicatesComponent } from './duplicates.component';
 
@@ -6,7 +6,7 @@ describe('DuplicatesComponent', () => {
   let component: DuplicatesComponent;
   let fixture: ComponentFixture<DuplicatesComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ DuplicatesComponent ]
     })

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ImageOverlayComponent } from './image-overlay.component';
 
@@ -6,7 +6,7 @@ describe('ImageOverlayComponent', () => {
   let component: ImageOverlayComponent;
   let fixture: ComponentFixture<ImageOverlayComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ImageOverlayComponent ]
     })
