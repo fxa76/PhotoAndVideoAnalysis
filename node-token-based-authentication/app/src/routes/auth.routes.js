@@ -60,30 +60,49 @@ router.post("/signin", (req, res, next) => {
         email: req.body.email
     }).then(user => {
         if (!user) {
+            console.log("no user");
             return res.status(401).json({
                 message: "Authentication failed"
             });
         }
-        getUser = user;
-        return bcrypt.compare(req.body.password, user.password);
+        else{
+            getUser = user;
+            return bcrypt.compare(req.body.password, user.password);
+        }
     }).then(response => {
+        console.log(response);
         if (!response) {
             return res.status(401).json({
                 message: "Authentication failed"
             });
         }
+        if(getUser==undefined){
+            return res.status(401).json({
+                message: "Authentication failed"
+            });
+        }
+
         let jwtToken = jwt.sign({
             email: getUser.email,
             userId: getUser._id
         }, "longer-secret-is-better", {
-            expiresIn: "1h"
-        });
-        res.status(200).json({
-            token: jwtToken,
-            expiresIn: 3600,
-            _id: getUser._id
-        });
+            expiresIn: '1h'
+        }, (err, asyncToken) => {
+            if (err){
+                return res.status(401).json({
+                    message: "Authentication failed"
+                });                
+            }
+            
+            console.log(asyncToken);                
+            res.status(200).json({
+                token: asyncToken,
+                expiresIn: 3600,
+                _id: getUser._id
+            });
+          }); 
     }).catch(err => {
+        console.log(err)
         return res.status(401).json({
             message: "Authentication failed"
         });
