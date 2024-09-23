@@ -14,6 +14,7 @@ export class AuthService {
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   currentUser : User ;
   user_id : string;
+
   constructor(  private http: HttpClient,    public router: Router  ) {
   }
 
@@ -37,7 +38,7 @@ export class AuthService {
           console.log("current user")
           console.log(this.currentUser)
           localStorage.setItem('user_id', this.currentUser._id)
-          this.router.navigate(['/images']);
+          this.router.navigate(['/images/true']);
         })
       })
   }
