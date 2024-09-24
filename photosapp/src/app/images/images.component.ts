@@ -1,6 +1,6 @@
 import { Component, OnInit,AfterViewInit, ElementRef, ViewChild, Input } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 
@@ -29,7 +29,7 @@ export class ImagesComponent implements OnInit,AfterViewInit  {
   faHeart=faHeart;
   today:string='false';
   
-  monthDay = new FormControl(new Date());
+  monthDay = new UntypedFormControl(new Date());
   images : Image[];
   selectedImage :Image;
   isLoading:boolean = true;
@@ -37,7 +37,7 @@ export class ImagesComponent implements OnInit,AfterViewInit  {
   //multiple selection
   multipleSelectionEnabled : boolean = false;
   multiSelectedImages : string[] =[];
-  setDate = new FormControl(new Date());
+  setDate = new UntypedFormControl(new Date());
   //side nav
    opened: boolean;
 

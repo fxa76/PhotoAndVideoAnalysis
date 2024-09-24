@@ -1,11 +1,11 @@
-FROM node:12.20
+FROM node:14.15
 
 WORKDIR /app
 
 COPY . .
 
 RUN npm install --save-dev @angular-devkit/build-angular
-RUN npm install -g @angular/cli@12
+RUN npm install -g @angular/cli@14
 RUN npm install 
 
 EXPOSE 4200 49153

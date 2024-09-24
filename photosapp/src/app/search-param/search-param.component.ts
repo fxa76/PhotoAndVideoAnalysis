@@ -1,5 +1,5 @@
 import { Component, OnInit,Input } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 
 import { Observable } from 'rxjs';
 
@@ -23,8 +23,8 @@ import { ObjectsInImagesService } from '../objects-in-images.service';
 export class SearchParamComponent implements OnInit {
   faRedo=faRedo;
 
-  startDate = new FormControl(new Date(2015,10,22,0,0,0,0));
-  endDate = new FormControl(new Date(2100,11,12,0,0,0,0));
+  startDate = new UntypedFormControl(new Date(2015,10,22,0,0,0,0));
+  endDate = new UntypedFormControl(new Date(2100,11,12,0,0,0,0));
   dateIsNull = false;
   gpsIsNull = false;
   useCoords = false;
@@ -46,8 +46,8 @@ export class SearchParamComponent implements OnInit {
 
   ngOnInit() {
     console.log("init")
-    this.startDate = new FormControl(new Date(this.searchParamService.searchParam.fromdate*1000));
-    this.endDate =  new FormControl(new Date(this.searchParamService.searchParam.todate*1000));
+    this.startDate = new UntypedFormControl(new Date(this.searchParamService.searchParam.fromdate*1000));
+    this.endDate =  new UntypedFormControl(new Date(this.searchParamService.searchParam.todate*1000));
     this.dateIsNull=  this.searchParamService.searchParam.dateIsNull;
     this.gpsIsNull=  this.searchParamService.searchParam.gpsIsNull;
     this.useCoords=  this.searchParamService.searchParam.use_coords;
