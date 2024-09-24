@@ -29,7 +29,7 @@ export class OrderStatusComponent implements OnInit, OnDestroy, AfterContentInit
 
   chartData: number[] = [];
 
-  displayedColumns = ['legend', 'orderStatus', 'total'];
+  displayedColumns = ['orderStates', 'orderStatus', 'total'];
 
   refreshInterval;
 
@@ -68,7 +68,7 @@ export class OrderStatusComponent implements OnInit, OnDestroy, AfterContentInit
 
   generateData() {
     this.orderStates = [];
-    HOBBITON.orderStates.forEach((state) => {
+   /* HOBBITON.orderStates.forEach((state) => {
       const target = new OrderState();
       target.state = state.state;
       target.stateDisplayValue = state.stateDisplayValue;
@@ -78,7 +78,7 @@ export class OrderStatusComponent implements OnInit, OnDestroy, AfterContentInit
     this.chartData = [];
     this.orderStates.forEach((state) => {
       this.chartData.push(state.count);
-    });
+    });*/
   }
 
   updateStates() {
