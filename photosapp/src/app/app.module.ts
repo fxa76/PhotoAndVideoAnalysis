@@ -2,7 +2,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AuthInterceptor } from './shared/authconfig.interceptor';
 
 //my components
@@ -71,82 +71,73 @@ import { BrushZoomHistoComponent } from './brush-zoom-histo/brush-zoom-histo.com
 import { D3ImageViewerComponent } from './d3-image-viewer/d3-image-viewer.component';
 import { D3ImageAndObjectsViewerComponent } from './d3-image-and-objects-viewer/d3-image-and-objects-viewer.component';
 
-@NgModule({
-  declarations: [
-    DragDropDirective,
-    AppComponent,
-    ImagesComponent,
-    ImageDetailComponent,
-    MessagesComponent,
-    ImageOverlayComponent,
-    MapComponent,
-    SearchParamComponent,
-    FacesComponent,
-    AlbumDetailComponent,
-    AlbumsComponent,
-    UploadComponent,
-    DuplicatesComponent,
-    SignupComponent,
-    SigninComponent,
-    UserProfileComponent,
-    
-    OrderStatusComponent,
-    DonutChartComponent,
-    OrderDeliveryComponent,
-    AreaChartComponent,
-    BrushZoomComponent,
-    BrushZoomHistoComponent,
-    TimelineComponent,
-    TimelinebarComponent,
-    D3ImageViewerComponent,
-    D3ImageAndObjectsViewerComponent
-  ],
-  imports: [
-    CommonModule,
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    BrowserModule,
-    DragDropModule,
-    BrowserAnimationsModule,
-    //material
-    MatIconModule,
-    MatExpansionModule,
-    MatProgressSpinnerModule,
-    MatCardModule,
-    MatProgressBarModule,
-    MatButtonModule,
-    MatTooltipModule,
-    MatFormFieldModule,
-    MatCheckboxModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatInputModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatTableModule,
-    MatSlideToggleModule,
-    MatListModule,
-    //forms
-    FormsModule,
-    ReactiveFormsModule,
-    //font
-    FontAwesomeModule
-  ],
-  providers: [SearchParamService,
-    MessageService,
-    ObjectsInImagesService,
-    ImageService,
-    MapService,
-    AlbumService,
-    DuplicatesService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    },
-    DatePipe
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        DragDropDirective,
+        AppComponent,
+        ImagesComponent,
+        ImageDetailComponent,
+        MessagesComponent,
+        ImageOverlayComponent,
+        MapComponent,
+        SearchParamComponent,
+        FacesComponent,
+        AlbumDetailComponent,
+        AlbumsComponent,
+        UploadComponent,
+        DuplicatesComponent,
+        SignupComponent,
+        SigninComponent,
+        UserProfileComponent,
+        OrderStatusComponent,
+        DonutChartComponent,
+        OrderDeliveryComponent,
+        AreaChartComponent,
+        BrushZoomComponent,
+        BrushZoomHistoComponent,
+        TimelineComponent,
+        TimelinebarComponent,
+        D3ImageViewerComponent,
+        D3ImageAndObjectsViewerComponent
+    ],
+    bootstrap: [AppComponent], imports: [CommonModule,
+        BrowserModule,
+        AppRoutingModule,
+        BrowserModule,
+        DragDropModule,
+        BrowserAnimationsModule,
+        //material
+        MatIconModule,
+        MatExpansionModule,
+        MatProgressSpinnerModule,
+        MatCardModule,
+        MatProgressBarModule,
+        MatButtonModule,
+        MatTooltipModule,
+        MatFormFieldModule,
+        MatCheckboxModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatInputModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatTableModule,
+        MatSlideToggleModule,
+        MatListModule,
+        //forms
+        FormsModule,
+        ReactiveFormsModule,
+        //font
+        FontAwesomeModule], providers: [SearchParamService,
+        MessageService,
+        ObjectsInImagesService,
+        ImageService,
+        MapService,
+        AlbumService,
+        DuplicatesService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        },
+        DatePipe, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SearchParam } from './searchParam';
-import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { GenericService } from './generic.service';
