@@ -71,8 +71,12 @@ export class ImageDetailComponent implements OnInit {
       const id:number = +this.route.snapshot.paramMap.get('id');
       this.images = images;
       const index = this.images.findIndex(item => item.image_id === id);
-      this.previous = this.images[index-1].image_id;
-      this.next = this.images[index+1].image_id;
+      if (this.images[index-1]!=undefined){
+        this.previous = this.images[index-1].image_id;
+      }
+      if (this.images[index+1]!=undefined){
+        this.next = this.images[index+1].image_id;
+      }
       this.isLoadingList=false;
     });
   }

@@ -20,7 +20,7 @@
     </button>
   </div>
   
-    <mat-card *ngIf="isLoading" style="width:90%;display: flex; justify-content: center; align-items: center">
+    <mat-card appearance="outlined" *ngIf="isLoading" style="width:90%;display: flex; justify-content: center; align-items: center">
       <mat-progress-bar color="primary" mode="indeterminate">
       </mat-progress-bar>
     </mat-card>
@@ -65,8 +65,10 @@
             <td><input [(ngModel)]="image.lon" placeholder="" /></td>
           </tr>
           <tr>
+            <span *ngIf="image.location!=undefined">
             <td>location</td>
             <td>{{image.location.road}}<br/>{{image.location.city}}{{image.location.town}}{{image.location.village}}<br/>{{image.location.country}}</td>
+            </span>
           </tr>
           <tr>
             <td>coord from exif</td>
