@@ -126,15 +126,15 @@ export class BrushZoomHistoComponent implements OnInit {
         }
         return barHeight;
       })
-      .on("mouseover", function(d: any) {
+      .on("mouseover", function(event,d: any) {
         d3.select(this)
           .attr("class", "barover");
         div.transition()
           .duration(200)
           .style("opacity", .9);
         div.html("number of files : " + d.length)
-          .style("left", (d3.event.pageX) + "px")
-          .style("top", (d3.event.pageY - 28) + "px");
+          .style("left", (event.pageX) + "px")
+          .style("top", (event.pageY - 28) + "px");
       })
       .on("mouseout", function(d, i) {
         d3.select(this).attr("class", "bar");

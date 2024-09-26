@@ -149,9 +149,9 @@ export class BrushZoomComponent implements OnInit {
             .attr('transform', 'translate(' + this.margin2.left + ',' + this.margin2.top + ')');
     }
 
-    private brushed() {
-        if (d3.event.sourceEvent && d3.event.sourceEvent.type === 'zoom') return; // ignore brush-by-zoom
-        let s = d3.event.selection || this.x2.range();
+    private brushed(event) {
+        if (event.sourceEvent && event.sourceEvent.type === 'zoom') return; // ignore brush-by-zoom
+        let s = event.selection || this.x2.range();
         this.x.domain(s.map(this.x2.invert, this.x2));
         this.focus.select('.area').attr('d', this.area);
         this.focus.select('.axis--x').call(this.xAxis);
@@ -160,9 +160,9 @@ export class BrushZoomComponent implements OnInit {
             .translate(-s[0], 0));
     }
 
-    private zoomed() {
-        if (d3.event.sourceEvent && d3.event.sourceEvent.type === 'brush') return; // ignore zoom-by-brush
-        let t = d3.event.transform;
+    private zoomed(event,d) {
+        if (event.sourceEvent && event.sourceEvent.type === 'brush') return; // ignore zoom-by-brush
+        let t = event.transform;
         this.x.domain(t.rescaleX(this.x2).domain());
         this.focus.select('.area').attr('d', this.area);
         this.focus.select('.axis--x').call(this.xAxis);

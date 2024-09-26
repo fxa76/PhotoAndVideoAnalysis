@@ -57,9 +57,9 @@ export class D3ImageViewerComponent implements OnInit {
 
       var zoomFn = d3.zoom()
           .scaleExtent([0.01, 40])
-          .on('zoom', function() {
+          .on('zoom', function(event,d) {
               console.log("zooming")
-              g.attr("transform", d3.event.transform)
+              g.attr("transform", event.transform)
           })
     svg.call(zoomFn);
 
