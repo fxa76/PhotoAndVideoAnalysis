@@ -27,7 +27,7 @@ import Point from 'ol/geom/Point.js';
 import Projection from 'ol/proj/Projection.js';
 import GeoJSON from 'ol/format/GeoJSON.js';
 import Select from 'ol/interaction/Select.js';
-import Extent from 'ol/extent'
+import {Extent} from 'ol/extent'
 
 
 import * as d3 from 'd3';
@@ -46,9 +46,15 @@ export class MapComponent implements OnInit {
   view: OlView;
   iconStyleCoordFromExif:Style;
   iconStyleCoordUserDefined:Style;
-  vectorSource = VectorSource;
-  vectorLayer: VectorLayer;
-  rasterLayer :TileLayer;
+  vectorSource = new VectorSource({
+    features: []
+  });
+  vectorLayer= new VectorLayer({
+    source: this.vectorSource
+  });
+  rasterLayer = new TileLayer({
+    source: new OSM()
+  });
   extent : Extent;
   poi:Poi[];
   topRight:number[];
@@ -102,7 +108,7 @@ export class MapComponent implements OnInit {
         })
       });
 
-      this.vectorSource = new VectorSource({
+      /*this.vectorSource = new VectorSource({
         features: []
       });
 
@@ -113,7 +119,7 @@ export class MapComponent implements OnInit {
       this.rasterLayer = new TileLayer({
         source: new OSM()
       });
-
+      */
       this.map = new OlMap({
         layers: [this.rasterLayer, this.vectorLayer],
         target: 'map',
@@ -127,7 +133,7 @@ export class MapComponent implements OnInit {
       var t = fromLonLat(this.searchParamService.searchParam.topRight);
 
       var myExtent = [b[0],b[1],t[0],t[1]];
-      this.map.getView().fit(myExtent , this.map.getSize());
+      this.map.getView().fit(myExtent , {size:this.map.getSize()});
 
       //add the selection interaction to enable clicking on a feature
       var select = new Select();
